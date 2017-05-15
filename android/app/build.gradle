@@ -127,6 +127,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-config')
     compile project(':react-native-photo-view')
     compile project(':react-native-permissions')
     compile project(':react-native-spinkit')
@@ -134,7 +135,6 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile project(':react-native-image-picker')
     compile project(':react-native-device-info')
-    compile project(':react-native-config')
     compile project(':react-native-code-push')
     compile project(':react-native-calendar-events')
     compile project(':react-native-lock')

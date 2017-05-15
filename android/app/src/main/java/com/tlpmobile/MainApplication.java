@@ -3,6 +3,7 @@ package com.tlpmobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.joshblour.reactnativepermissions.ReactNativePermissionsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
@@ -10,7 +11,6 @@ import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.calendarevents.CalendarEventsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -39,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeConfigPackage(),
             new PhotoViewPackage(),
             new ReactNativePermissionsPackage(),
             new RNSpinkitPackage(),
@@ -46,7 +47,6 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new ImagePickerPackage(),
             new RNDeviceInfo(),
-            new ReactNativeConfigPackage(),
             new CodePush(null, getApplicationContext(), BuildConfig.DEBUG),
             new CalendarEventsPackage()
       );
