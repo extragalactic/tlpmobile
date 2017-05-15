@@ -285,26 +285,19 @@ class _CustomerDetails extends Component {
                 this.props.params.type === 'followup' ||
                 this.props.params.type === 'onsite' ||
                 this.props.params.type === 'inprogress' ||
-                this.props.params.type === 'surveycomplete' ?
+                this.props.params.type === 'surveycomplete'  ||
+                this.props.params.type === 'search' ?
               <CustomerCardSurvey
                 customer={this.props.data.customer}
                 startSurvey={() => { this.setState({ surveyModal: true }); }}
                 surveyComplete={this.getFinishedSurvey}
               /> : null
           }
-  
             { this.props.params.type === 'search' || this.props.params.type === 'estimatesent' || this.props.params.type === 'myestimates' ?
-             <View>
               <CustomerCardEstimate
                 customer={this.props.data.customer}
                 getEstimate={this.getFinishedSurvey}
               />
-              <CustomerCardSurvey
-                customer={this.props.data.customer}
-                startSurvey={() => { this.setState({ surveyModal: true }); }}
-                surveyComplete={this.getFinishedSurvey}
-              /> 
-              </View>
            : null}
             { this.props.params.type === 'queue' ?
               <CustomerCardQueue
