@@ -15,7 +15,7 @@ import { authStatusReducer, graphqlStatusReducer } from './src/reducers/statusRe
 const client = new ApolloClient({
   connectToDevTools: true,
   networkInterface: createNetworkInterface({
-    uri: 'https://tlpm.ca/graphql',
+    uri: 'http://localhost:8080/graphql',
   },
     {
       shouldBatch: true,
