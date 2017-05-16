@@ -505,7 +505,14 @@ const checkConnection = gql `
   checkConnection
 }`;
 
+const toggleNoReply = gql `
+  mutation toggleStatus($custid: String, $userid: String){
+  toggleNoReply(custid: $custid, userid: $userid)
+}
+`;
+
 export {
+  toggleNoReply,
   checkConnection,
   deleteSurveyNotes,
   searchCustomer,

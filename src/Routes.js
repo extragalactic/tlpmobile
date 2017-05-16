@@ -18,12 +18,24 @@ import PricingContainer from './refactor/Estimates/PricingContainer';
 import StreetViewContainer from './refactor/Maps/StreetViewContainer';
 import SearchContainer from './refactor/SearchCustomer/SearchContainer';
 import PhotoEditorContainer from './refactor/PhotoGallery/PhotoEditorContainer';
+import SurveyorHome from './refactor/Home/SurveyorHome';
+import EstimatorHome from './refactor/Home/EstimatorHome';
 
 const routes = Actions.create(
   <Scene key="root">
     <Scene
       key="home"
       component={Home}
+    />
+        <Scene
+      key={'surveyorHome'}
+      component={SurveyorHome}
+      passProps
+    />    
+    <Scene
+      key={'estimatorHome'}
+      component={EstimatorHome}
+      passProps
     />
     <Scene
       key={'giftedChatContainer'}

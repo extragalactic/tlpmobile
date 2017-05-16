@@ -482,6 +482,18 @@ const getMyCustomers = gql `
       address
     }
     
+    estimatefollowup {
+      id
+      firstName
+      lastName
+      cphone
+      hphone
+      wphone
+      email1
+      email2
+      status
+      address
+    }
     
   }
 }`;
@@ -592,7 +604,19 @@ const getUserandCustomers = gql `
       status
       address
     }
-
+    
+    estimatefollowup {
+      id
+      firstName
+      lastName
+      cphone
+      hphone
+      wphone
+      email1
+      email2
+      status
+      address
+    }
   estimatequeue {
       id
       firstName
@@ -649,6 +673,7 @@ const getUserandCustomers = gql `
         address
         status
       }
+      
       followUp {
         name
         start
