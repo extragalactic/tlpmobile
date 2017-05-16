@@ -48,7 +48,7 @@ class _GiftedChatContainer extends React.Component {
 
     this._isMounted = true;
     this.setState(() => ({
-      messages: _.reverse(this.props.data.customer.notes),
+      messages: this.props.data.customer.notes,
     }));
   }
 
@@ -64,7 +64,7 @@ class _GiftedChatContainer extends React.Component {
     setTimeout(() => {
       if (this._isMounted === true) {
         this.setState(previousState => ({
-          messages: GiftedChat.prepend(previousState.messages, _.reverse(this.props.data.customer.notes)),
+          messages: GiftedChat.prepend(previousState.messages, this.props.data.customer.notes),
           loadEarlier: false,
           isLoadingEarlier: false,
         }));
