@@ -1,42 +1,45 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ActionSheetIOS,
   CameraRoll,
   AlertIOS,
   Modal,
-  Dimensions,
   View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PhotoBrowser from 'react-native-photo-browser';
 import ImagePickerManager from 'react-native-image-picker';
 import { graphql, compose } from 'react-apollo';
-// import Modal from 'react-native-modal'; //  trying out an improved Modal
 
 import { getBase64, addSurveyPhoto, selectSurveyPhotos } from '../../graphql/mutations';
 import { getMyCustomer } from '../../graphql/queries';
 import photoOptions from '../PhotoPicker/photoOptions'; // move this!
 import PhotoEditorContainer from './PhotoEditorContainer';
-const window = Dimensions.get('window');
 
-/*
+// const window = Dimensions.get('window');
+
 const BUTTONS = [
   'Edit',
   'Save',
   'Add',
-  'Delete',
-];
-*/
-const BUTTONS = [
-  'Save',
-  'Add',
   'Cancel',
+  'Cancel', // note: had to insert Cancel twice, not sure why
 ];
-const DESTRUCTIVE_INDEX = 5;
-const CANCEL_INDEX = 2;
+
+const DESTRUCTIVE_INDEX = 7;
+const CANCEL_INDEX = 3;
 
 
 class _PhotoGalleryDetails extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    selectSurveyPhotos: PropTypes.func.isRequired,
+    addSurveyPhoto: PropTypes.func.isRequired,
+    getBase64: PropTypes.func.isRequired,
+  }
   constructor() {
     super();
     this.state = {
@@ -45,10 +48,11 @@ class _PhotoGalleryDetails extends React.Component {
       currentSelection: '',
       isEditorOpen: false,
     };
+    this.selectedDocID = '';
   }
   componentDidMount() {
-
   }
+
   downloadImage = (image) => {
     this.props.getBase64({
       variables: {
@@ -85,6 +89,7 @@ class _PhotoGalleryDetails extends React.Component {
     (buttonIndex) => {
       const selection = BUTTONS[buttonIndex];
       if (selection === 'Edit') {
+        this.selectedDocID = this.props.data.customer.survey.photos[index].docID;
         this.setState({
           isEditorOpen: true,
         });
@@ -99,6 +104,9 @@ class _PhotoGalleryDetails extends React.Component {
       if (selection === 'Delete') {
         // delete
       }
+      if (selection === 'Cancel') {
+        // no nothing (cancel)
+      }
     });
   };
 
@@ -111,25 +119,31 @@ class _PhotoGalleryDetails extends React.Component {
     });
   };
 
+  returnToPhotoBrowser = () => {
+    this.setState({
+      isEditorOpen: false,
+    });
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
-           <PhotoBrowser
-            style={{
-              flex: 1,
-            }}
-            mediaList={this.props.data.customer.survey.photos}
-            alwaysShowControls
-            onBack={() => Actions.pop()}
-            displayActionButton
-            displayNavArrows
-            displaySelectionButtons={!(this.props.params == 'survey')}
-            startOnGrid
-            onActionButton={(media, index) => this.showActionSheet(media, index)}
-            onSelectionChanged={(media, index, isSelected) => {
-              this.togglePhotoSelection(index);
-            }}
-          />
+        <PhotoBrowser
+          style={{
+            flex: 1,
+          }}
+          mediaList={this.props.data.customer.survey.photos}
+          alwaysShowControls
+          onBack={() => Actions.pop()}
+          displayActionButton
+          displayNavArrows
+          displaySelectionButtons={!(this.props.params === 'survey')}
+          startOnGrid
+          onActionButton={(media, index) => this.showActionSheet(media, index)}
+          onSelectionChanged={(media, index, isSelected) => {
+            this.togglePhotoSelection(index);
+          }}
+        />
         <Modal
           style={{ flex: 1 }}
           isOpen={this.state.isEditorOpen}
@@ -139,9 +153,11 @@ class _PhotoGalleryDetails extends React.Component {
             style={{
               flex: 1,
               width: 800,
+              marginTop: 200,
             }}
-            open={this.state.isEditorOpen}
+            onBack={this.returnToPhotoBrowser}
             custID={this.props.data.customer.id}
+            docID={this.selectedDocID}
           />
         </Modal>
       </View>

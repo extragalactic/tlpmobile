@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { WebView, View } from 'react-native';
 import Spinner from 'react-native-spinkit';
 import { width, height } from 'react-native-dimension';
@@ -23,8 +24,8 @@ const BASE_URL = 'https://tlpm.ca';
 
 class StreetViewContainer extends React.Component {
   static propTypes = {
-		// props.data is the customer ID
-    data: React.PropTypes.string.isRequired,
+    // props.data is the customer ID
+    data: PropTypes.string.isRequired,
   }
   constructor(props) {
     super(props);
@@ -32,7 +33,6 @@ class StreetViewContainer extends React.Component {
       isLoaded: false,
     };
     this.custID = props.data;
-		// this.custID = '58e998682d9c5601001e57ef';
   }
 
   onLoadComplete = () => {
@@ -45,11 +45,11 @@ class StreetViewContainer extends React.Component {
     return (
       <View style={styles.view}>
         { !this.state.isLoaded &&
-        <Spinner
-          style={styles.spinner}
-          type={'Wave'}
-        />
-				}
+          <Spinner
+            style={styles.spinner}
+            type={'Wave'}
+          />
+        }
         <WebView
           style={styles.webview}
           contentInset={{ top: 50, left: 0, bottom: 0, right: 0 }}
