@@ -55,7 +55,41 @@ class _UserHome extends React.Component {
         style={styles.container}
       >
         <Text> Hey {this.props.data.user.firstName}! Choose an option below</Text>
-        { user.surveyor ?
+        
+         <Button
+              title={'Surveys'}
+              buttonStyle={MasterStyleSheet.homeButtonStyle}
+              onPress={() => Actions.surveyorHome()}
+            />
+           <Button
+              title={'Estimates'}
+              buttonStyle={MasterStyleSheet.estimateButtonStyle}
+              onPress={() => Actions.estimatorHome()}
+            />
+         <Button
+          title={'Search'}
+          buttonStyle={MasterStyleSheet.searchButtonStyle}
+          onPress={() => Actions.searchContainer()}
+        />
+      </View>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  profile: state.profile,
+});
+
+const UserHome = compose(
+  graphql(getUserandCustomers, {
+    options: ({ id }) => ({ variables: { id }, pollInterval: 5000 }),
+  }),
+  connect(mapStateToProps, null),
+)(_UserHome);
+
+export default UserHome;
+/*
+ { user.surveyor ?
           <View>
             <Button
               title={'New Customers'}
@@ -109,20 +143,6 @@ class _UserHome extends React.Component {
           buttonStyle={MasterStyleSheet.searchButtonStyle}
           onPress={() => Actions.searchContainer()}
         />
-      </View>
-    );
-  }
-}
 
-const mapStateToProps = state => ({
-  profile: state.profile,
-});
 
-const UserHome = compose(
-  graphql(getUserandCustomers, {
-    options: ({ id }) => ({ variables: { id }, pollInterval: 5000 }),
-  }),
-  connect(mapStateToProps, null),
-)(_UserHome);
-
-export default UserHome;
+*/
