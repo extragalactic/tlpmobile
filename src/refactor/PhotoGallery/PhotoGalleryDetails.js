@@ -18,7 +18,7 @@ import { getMyCustomer } from '../../graphql/queries';
 import photoOptions from '../PhotoPicker/photoOptions'; // move this!
 import PhotoEditorContainer from './PhotoEditorContainer';
 const window = Dimensions.get('window');
-
+console.log(CameraRoll)
 /*
 const BUTTONS = [
   'Edit',
@@ -45,9 +45,6 @@ class _PhotoGalleryDetails extends React.Component {
       currentSelection: '',
       isEditorOpen: false,
     };
-  }
-  componentDidMount() {
-
   }
   downloadImage = (image) => {
     this.props.getBase64({
