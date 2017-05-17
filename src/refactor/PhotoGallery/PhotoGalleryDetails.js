@@ -24,11 +24,7 @@ const BUTTONS = [
   'Save',
   'Add',
   'Cancel',
-  'Cancel', // note: had to insert Cancel twice, not sure why
 ];
-
-const DESTRUCTIVE_INDEX = 7;
-const CANCEL_INDEX = 3;
 
 
 class _PhotoGalleryDetails extends React.Component {
@@ -83,8 +79,6 @@ class _PhotoGalleryDetails extends React.Component {
     this.setState({ currentSelection: this.props.data.customer.survey.photos[index].photo });
     ActionSheetIOS.showActionSheetWithOptions({
       options: BUTTONS,
-      cancelButtonIndex: CANCEL_INDEX,
-      destructiveButtonIndex: DESTRUCTIVE_INDEX,
     },
     (buttonIndex) => {
       const selection = BUTTONS[buttonIndex];
