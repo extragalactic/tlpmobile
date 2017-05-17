@@ -23,7 +23,6 @@ const styles = {
     marginTop: 50,
   },
 };
-// const BASE_URL = 'http://localhost:8080';
 const BASE_URL = 'https://tlpm.ca';
 
 class PhotoEditorContainer extends React.Component {
@@ -52,8 +51,6 @@ class PhotoEditorContainer extends React.Component {
   render() {
     const custID = this.props.custID;
     const docID = this.props.docID;
-    // const custID = '58dfbac55d535f2ecb726a83';
-    // const docID = 'WVVHUZrulkKi';
 
     // console.log('custID = ' + custID);
     // console.log('docID = ' + docID);
