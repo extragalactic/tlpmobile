@@ -368,7 +368,7 @@ const editPriceDescription = gql `
   editPriceDescription(custid:$custid, index: $index, option: $option, text: $text)
 }`;
 const editPriceAmount = gql `
-  mutation($custid: String, $index: Int, $option: String, $amount: Int ){
+  mutation($custid: String, $index: Int, $option: String, $amount: String ){
   editPriceAmount(custid:$custid, index: $index, option: $option, amount: $amount)
 }`;
 
