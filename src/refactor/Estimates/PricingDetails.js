@@ -51,7 +51,6 @@ class _PricingDetails extends React.Component {
         },
       })
       .then((res) => {
-        // console.log(res);
       });
     }
   }
@@ -258,9 +257,7 @@ class _PricingDetails extends React.Component {
                 { this.props.data.customer ?
                   this.props.data.customer.prices.map((price, index) => (
                     <View>
-
                       <Card containerStyle={estimateStyles.savedPriceCard} >
-
                         { !price.option1.description ?
                           <View
                             style={{
@@ -285,7 +282,6 @@ class _PricingDetails extends React.Component {
                           defaultValue={price.description}
                           onChangeText={text => this.handleInputPriceDescription(text)}
                           onKeyPress={e => this.handleKeyDownDescription(e, index, 'option0')}
-
                         />
                         <TextInput
                           style={estimateStyles.pricePrice}
@@ -294,7 +290,6 @@ class _PricingDetails extends React.Component {
                           defaultValue={`${price.amount}`}
                           onChangeText={amount => this.handleInputPriceAmount(amount)}
                           onKeyPress={e => this.handleKeyDownAmount(e, index, 'option0')}
-
                         />
                         { price.option1.description ?
                           <View>
@@ -329,7 +324,6 @@ class _PricingDetails extends React.Component {
                               defaultValue={`${price.option1.amount}`}
                               onChangeText={amount => this.handleInputPriceAmount(amount)}
                               onKeyPress={e => this.handleKeyDownAmount(e, index, 'option1')}
-
                             />
                           </View>
                      : null}
@@ -429,7 +423,6 @@ class _PricingDetails extends React.Component {
                               defaultValue={price.option4.description}
                               onChangeText={text => this.handleInputPriceDescription(text)}
                               onKeyPress={e => this.handleKeyDownDescription(e, index, 'option4')}
-
                             />
                             <TextInput
                               style={estimateStyles.pricePrice}
@@ -438,7 +431,6 @@ class _PricingDetails extends React.Component {
                               defaultValue={`${price.option4.amount}`}
                               onChangeText={amount => this.handleInputPriceAmount(amount)}
                               onKeyPress={e => this.handleKeyDownAmount(e, index, 'option4')}
-
                             />
                           </View>
                      : null}
