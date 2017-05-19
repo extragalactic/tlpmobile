@@ -43,12 +43,6 @@ const generics = [
     prop: 'refacingComplete',
     des: 'Complete Stone Refacing',
   },
-/*
-  {
-    prop: 'pargeex',
-    des: 'Parge concrete exterior foundation',
-  },
-*/
   {
     prop: 'coping',
     des: 'Coping Stone',
@@ -113,4 +107,9 @@ const generics = [
 
 ];
 
+  generics = generics.sort(function(a, b) {
+    var textA = a.prop.toUpperCase();
+    var textB = b.prop.toUpperCase();
+    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+});
 export default generics;
