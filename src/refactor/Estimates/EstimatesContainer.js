@@ -122,9 +122,6 @@ class _EstimatesContainer extends React.Component {
           { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
         ],
       );
-
-
-
       }
     });
     }

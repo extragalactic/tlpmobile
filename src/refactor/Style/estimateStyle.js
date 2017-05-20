@@ -28,7 +28,7 @@ const estimateStyles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 16,
     width: DeviceInfo.isTablet() ? window.width / 3 : window.width - 150,
-    height: 100,
+    height: 300,
     borderColor: 'gray',
     borderWidth: 1,
     marginHorizontal: 50,
