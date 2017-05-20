@@ -12,7 +12,7 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 30,
+    paddingTop: 10,
   },
   webview: {
     flex: 1,
@@ -60,6 +60,7 @@ class PhotoEditorContainer extends React.Component {
         <Button
           icon={{ name: 'chevron-left' }}
           backgroundColor="#03A9F4"
+          style={{ marginBottom: 10 }}
           buttonStyle={MasterStyleSheet.mainButtonStyle}
           title="Back"
           onPress={this.props.onBack}
@@ -72,7 +73,7 @@ class PhotoEditorContainer extends React.Component {
         }
         <WebView
           style={styles.webview}
-          contentInset={{ top: 10, left: 5, bottom: 5, right: 5 }}
+          contentInset={{ top: 0, left: 0, bottom: 5, right: 0 }}
           scalesPageToFit
           onLoad={this.onLoadComplete}
           source={{ uri: `${BASE_URL}/photoedit/${custID}/${docID}` }}
