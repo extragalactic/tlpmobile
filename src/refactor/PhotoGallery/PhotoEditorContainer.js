@@ -12,7 +12,7 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 30,
+    paddingTop: 10,
   },
   webview: {
     flex: 1,
@@ -23,7 +23,6 @@ const styles = {
     marginTop: 50,
   },
 };
-// const BASE_URL = 'http://localhost:8080';
 const BASE_URL = 'https://tlpm.ca';
 
 class PhotoEditorContainer extends React.Component {
@@ -52,21 +51,12 @@ class PhotoEditorContainer extends React.Component {
   render() {
     const custID = this.props.custID;
     const docID = this.props.docID;
-    // const custID = '58dfbac55d535f2ecb726a83';
-    // const docID = 'WVVHUZrulkKi';
 
     // console.log('custID = ' + custID);
     // console.log('docID = ' + docID);
 
     return (
       <View style={styles.view}>
-        <Button
-          icon={{ name: 'chevron-left' }}
-          backgroundColor="#03A9F4"
-          buttonStyle={MasterStyleSheet.mainButtonStyle}
-          title="Back"
-          onPress={this.props.onBack}
-        />
         { !this.state.isLoaded &&
           <Spinner
             style={styles.spinner}
@@ -75,7 +65,7 @@ class PhotoEditorContainer extends React.Component {
         }
         <WebView
           style={styles.webview}
-          contentInset={{ top: 10, left: 5, bottom: 5, right: 5 }}
+          contentInset={{ top: 0, left: 0, bottom: 5, right: 0 }}
           scalesPageToFit
           onLoad={this.onLoadComplete}
           source={{ uri: `${BASE_URL}/photoedit/${custID}/${docID}` }}

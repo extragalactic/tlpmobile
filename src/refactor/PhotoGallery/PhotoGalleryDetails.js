@@ -17,7 +17,6 @@ import { getMyCustomer } from '../../graphql/queries';
 import photoOptions from '../PhotoPicker/photoOptions'; // move this!
 import PhotoEditorContainer from './PhotoEditorContainer';
 
-// const window = Dimensions.get('window');
 
 const BUTTONS = [
   'Edit',
@@ -25,7 +24,6 @@ const BUTTONS = [
   'Add',
   'Cancel',
 ];
-
 
 class _PhotoGalleryDetails extends React.Component {
   static propTypes = {
@@ -83,6 +81,7 @@ class _PhotoGalleryDetails extends React.Component {
     (buttonIndex) => {
       const selection = BUTTONS[buttonIndex];
       if (selection === 'Edit') {
+        // launch editor
         this.selectedDocID = this.props.data.customer.survey.photos[index].docID;
         this.setState({
           isEditorOpen: true,
@@ -96,10 +95,10 @@ class _PhotoGalleryDetails extends React.Component {
         this.uploadImage();
       }
       if (selection === 'Delete') {
-        // delete
+        // delete... coming soon
       }
       if (selection === 'Cancel') {
-        // no nothing (cancel)
+        // do nothing (cancel)
       }
     });
   };
