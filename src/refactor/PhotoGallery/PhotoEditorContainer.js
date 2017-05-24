@@ -57,14 +57,6 @@ class PhotoEditorContainer extends React.Component {
 
     return (
       <View style={styles.view}>
-        <Button
-          icon={{ name: 'chevron-left' }}
-          backgroundColor="#03A9F4"
-          style={{ marginBottom: 10 }}
-          buttonStyle={MasterStyleSheet.mainButtonStyle}
-          title="Back"
-          onPress={this.props.onBack}
-        />
         { !this.state.isLoaded &&
           <Spinner
             style={styles.spinner}
