@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Dimensions, ScrollView, AlertIOS, TouchableHighlight, TextInput, SegmentedControlIOS } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Text, Card, Button, CheckBox, ListItem, List, Icon, SwipeDeck } from 'react-native-elements';
+import { Text, Card, Button, CheckBox, ListItem, List, Icon } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
 import { graphql, compose } from 'react-apollo';
 import { Actions } from 'react-native-router-flux';
@@ -14,9 +14,8 @@ import ZoomViewModal from '../../components/photoGallery/zoomViewModal';
 import EstimatePreviewModal from '../../components/Modals/estimatePreviewModal';
 import generics from './generics';
 import { estimateStyles } from '../Style/estimateStyle';
-import PriceList from './FoldDown/PriceList';
+
 const window = Dimensions.get('window');
-const { width, height } = Dimensions.get('window');
 
 class _EstimatesContainer extends React.Component {
   constructor() {
@@ -62,8 +61,6 @@ class _EstimatesContainer extends React.Component {
       loadingButton: false,
       estimateSelect: '',
       estimateUrl: '',
-      size: { width, height },
-
     };
   }
   previewEstimate = () => {
@@ -203,12 +200,6 @@ class _EstimatesContainer extends React.Component {
   updateCustomInput = (customText) => {
     this.setState({ customText, custom: true });
   };
-  _onLayoutDidChange = (e) => {
-    const layout = e.nativeEvent.layout;
-    this.setState({ size: { width: layout.width, height: layout.height } });
-  }
-
-
   render() {
     if (!this.props.data.getFinishedSurveyQuery) {
       return (
@@ -222,35 +213,232 @@ class _EstimatesContainer extends React.Component {
             size={53}
             style={MasterStyleSheet.EstimateModalColLeft}
           >
-            <Row
-              size={80}
+            <View
+              style={estimateStyles.surveyResultPhotosView}
             >
-              <View
-                style={estimateStyles.surveyResultPhotosView}
-              />
-            </Row>
+              <Swiper
+                showsButtons
+                style={MasterStyleSheet.EstimateMainSwipe}
+                width={window.width / 2}
+              >
 
-            <Row
-              style={{
-                // backgroundColor: 'blue'
-              }}
-              size={20}
-            />
+                { this.props.data.getFinishedSurveyQuery.map((survey, idx) => (
+                  <View
+                    key={idx}
+                  >
+                    <Card
+                      title={survey.heading}
+                      containerStyle={{
+                        borderRadius: 15,
+                        height: window.height / 1.15,
+                        width: window.width / 2.060,
+                      }}
+                    >
+
+                      <Swiper
+                        width={window.width / 2}
+                        height={window.height / 2}
+                      >
+                        {survey.photos.map((photo, idx) => (
+                          <View
+                            key={idx}
+                            style={MasterStyleSheet.surveyResultInsideView}
+                          >
+                            <TouchableHighlight
+                              onPress={() => this.selectImage(photo.url)}
+                            >
+                              <Image
+                                style={MasterStyleSheet.surveyResultPhotos}
+                                source={{ uri: photo.url }}
+                              />
+                            </TouchableHighlight>
+                          </View>
+          ))}
+
+                      </Swiper>
+                      <Card
+                        containerStyle={{
+                          backgroundColor: '#FFFFA5',
+                          width: window.width / 2.2,
+                          height: window.height / 3.7,
+                          borderRadius: 15,
+                        }}
+                      >
+                        <ScrollView
+                          contentContainerStyle={MasterStyleSheet.surveyResultsNotesView}
+                        >
+                          { survey.notes.map((note, idx) => (
+                            <View key={idx}>
+                              <Text h3> {note.description}</Text>
+                              <Text h4> {note.text}</Text>
+                            </View>
+                ))}
+                        </ScrollView>
+                      </Card>
+
+                    </Card>
+
+                  </View>
+        ))}
+
+              </Swiper>
+            </View>
           </Col>
           <Col
-            size={55}
+            size={45}
             style={MasterStyleSheet.EstimateModalColRight}
           >
             <View
               style={MasterStyleSheet.EstimatePreviewCard}
             >
               <Grid>
-
-
-                <PriceList
-                  id={this.props.id}
-                  customer={this.props.data.customer}
+                <Row
+                  size={30}
+                  style={{
+                    margin: 10,
+                    flex: 1,
+                  }}
                 />
+                <SegmentedControlIOS
+                  style={{
+                    marginHorizontal: 20,
+                  }}
+                  values={['Preview', 'Sent']}
+                  onValueChange={estimateSelect => this.setState({ estimateSelect })}
+                />
+                <Card
+                  containterStyle={{
+                    height: 100,
+                  }}
+                  title={'Estimates'}
+                >
+                  <View
+                    style={{
+                      height: 100,
+                    }}
+                  >
+                    <ScrollView>
+                      <List
+                        containerStyle={{
+                          marginTop: 0,
+                        }}
+                      >
+                        {this.state.estimateSelect === 'Preview' && this.props.data.customer.previewHistory.length > 0 ?
+                          this.props.data.customer.previewHistory.map(preview => (
+                            <ListItem
+                              title={preview.timestamp}
+                              onPress={() => this.setState({
+                                estimateUrl: preview.url,
+                                estimatePreviewModal: true,
+                              })}
+                            />
+                ))
+                : null}
+                        {this.state.estimateSelect === 'Sent' && this.props.data.customer.estimateHistory.length > 0 ?
+                this.props.data.customer.estimateHistory.map(preview => (
+                  <ListItem
+                    title={preview.timestamp}
+                    onPress={() => this.setState({
+                      estimateUrl: preview.url,
+                      estimatePreviewModal: true,
+                    })}
+                  />
+                ))
+                : null}
+
+                      </List>
+                    </ScrollView>
+                  </View>
+                </Card>
+                <Row
+                  size={60}
+                  style={{
+                    margin: 10,
+                  }}
+                >
+                  <ScrollView>
+                    { generics.map(generic => (
+                      <CheckBox
+                        key={generic.prop}
+                        title={generic.des}
+                        onPress={() => this.setState({ [generic.prop]: !this.state[generic.prop] })}
+                        checked={this.state[generic.prop]}
+                        containerStyle={MasterStyleSheet.checkBox}
+                      />
+                     ))}
+
+                  </ScrollView>
+
+                </Row>
+                <Row
+                  size={40}
+                  style={{
+                    margin: 10,
+                  }}
+                >
+                  <Card
+                    title={'Custom Text'}
+                    containerStyle={{
+                      width: window.width / 2.5,
+                      marginBottom: 10,
+                      margin: 10,
+                      borderRadius: 20,
+
+                    }}
+                  >
+                    <TextInput
+                      style={{ marginBottom: 40, height: 65, borderRadius: 20, padding: 4, borderColor: 'gray', borderWidth: 1 }}
+                      onChangeText={price => this.updateCustomInput(price)}
+                      value={this.state.customText}
+                      multiline
+                    />
+
+                  </Card>
+
+                </Row>
+                <Row
+                  size={20}
+                  style={{
+                    margin: 10,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <View
+                    style={MasterStyleSheet.addEstimateButtonRow1}
+                  >
+                    <Icon
+                      name="monetization-on"
+                      color="#517fa4"
+                      size={32}
+                      raised
+                      onPress={() => Actions.pricingContainer()}
+                    />
+                    <Icon
+                      name="photo-library"
+                      color="#517fa4"
+                      raised
+                      size={32}
+
+                      onPress={() => Actions.photoGalleryContainer()}
+                    />
+                    <Icon
+                      name="picture-as-pdf"
+                      color={this.state.loadingButton ? 'green' : '#517fa4'}
+                      raised
+                      size={32}
+
+                      onPress={() => this.previewEstimate(this.state)}
+                    />
+
+                    <Icon
+                      name="send"
+                      color="#517fa4"
+                      raised
+                      size={32}
+                      onPress={this.sendEstimate}
+                    />
+                  </View>
+                </Row>
               </Grid>
             </View>
           </Col>
