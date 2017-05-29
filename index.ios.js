@@ -9,7 +9,12 @@ import { Router } from 'react-native-router-flux';
 import routes from './src/Routes';
 import { profileReducer, saveUserReducer } from './src/reducers/authReducer';
 import { customerReducer } from './src/reducers/currentCustomer';
-import { priceDescriptionReducer, priceAmountReducer } from './src/reducers/pricingReducer';
+import
+   { priceDescriptionReducer,
+    priceAmountReducer,
+    pricePickerReducer,
+    priceDetailsReducer,
+} from './src/reducers/pricingReducer';
 import { authStatusReducer, graphqlStatusReducer } from './src/reducers/statusReducer';
 
 const client = new ApolloClient({
@@ -38,7 +43,8 @@ const combinedReducers =
     currentCustomer: customerReducer,
     authStatus: authStatusReducer,
     graphqlStatus: graphqlStatusReducer,
-
+    pricePicker: pricePickerReducer,
+    priceDetails: priceDetailsReducer,
   });
 
 const composeEnhancers = composeWithDevTools({ realtime: true, port: 8000 });

@@ -107,9 +107,9 @@ const generics = [
 
 ];
 
-  generics = generics.sort(function(a, b) {
-    var textA = a.prop.toUpperCase();
-    var textB = b.prop.toUpperCase();
-    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+generics = generics.sort((a, b) => {
+  const textA = a.des.toUpperCase();
+  const textB = b.des.toUpperCase();
+  return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
 });
 export default generics;

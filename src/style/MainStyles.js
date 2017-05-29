@@ -385,7 +385,7 @@ const MasterStyleSheet = StyleSheet.create({
     backgroundColor: '#e7e8ee',
     borderRadius: 15,
     flex: 1,
-    marginTop: 120,
+    marginTop: 70,
     marginHorizontal: 20,
     marginBottom: 20,
     height: DeviceInfo.isTablet() ? null : 100,

@@ -56,7 +56,7 @@ class _PricingDetails extends React.Component {
   }
 
   handleKeyDownAmount = (e, index, option) => {
-    console.log(option)
+    console.log(option);
     if (e.nativeEvent.key === 'Enter') {
       this.props.editPriceAmount({
         variables: {
@@ -130,7 +130,7 @@ class _PricingDetails extends React.Component {
     this.props.savePriceDescription({ text });
   }
   handleInputPriceAmount = (amount) => {
-    console.log(amount)
+    console.log(amount);
     this.props.savePriceAmount({ amount });
   }
   selectPreviousDescription = (text, index) => {
@@ -187,7 +187,7 @@ class _PricingDetails extends React.Component {
                               <Icon
                                 raised
                                 style={{
-                               }}
+                                }}
                                 size={16}
                                 name="close"
                                 color="red"
