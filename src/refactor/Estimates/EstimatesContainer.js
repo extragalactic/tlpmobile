@@ -27,35 +27,6 @@ class _EstimatesContainer extends React.Component {
       customModal: false,
       estimatePreviewModal: false,
       priceText: false,
-      watertest: false,
-      concreteSteps: false,
-      concreteCare: false,
-      refacingSlices: false,
-      refacingComplete: false,
-      coping: false,
-      flagstone: false,
-      flashing: false,
-      fwarranty: false,
-      obc: false,
-      nbc: false,
-      chimney: false,
-      pargeex: false,
-      pwarranty: false,
-      retaining: false,
-      roof: false,
-      sills: false,
-      tuckpoint: false,
-      custom: false,
-      waterproofing: false,
-      disclaimerA: false,
-      disclaimerS: false,
-      tuckpointUniform: false,
-      surveyInvite: false,
-      surveyInviteDave: false,
-      customerClean: false,
-      additionalWork: false,
-      warrantyAsStated: false,
-      existingConcrete: false,
       customText: '',
       zoomModal: false,
       currentSelection: '',
@@ -70,49 +41,19 @@ class _EstimatesContainer extends React.Component {
     if (this.props.data.customer.prices.length === 0) {
       AlertIOS.alert('No Prices!');
     } else {
-      this.setState({ loadingButton: true });
-      const gen = {
-        watertest: this.state.watertest,
-        concreteSteps: this.state.concreteSteps,
-        concreteCare: this.state.concreteCare,
-        refacingSlices: this.state.refacingSlices,
-        refacingComplete: this.state.refacingComplete,
-        coping: this.state.coping,
-        flagstone: this.state.flagstone,
-        flashing: this.state.flashing,
-        fwarranty: this.state.fwarranty,
-        chimney: this.state.chimney,
-        obc: this.state.obc,
-        nbc: this.state.nbc,
-        pargeex: this.state.pargeex,
-        pwarranty: this.state.pwarranty,
-        retaining: this.state.retaining,
-        roof: this.state.roof,
-        sills: this.state.sills,
-        tuckpoint: this.state.tuckpoint,
-        custom: this.state.custom,
-        waterproofing: this.state.waterproofing,
-        disclaimerA: this.state.disclaimerA,
-        disclaimerS: this.state.disclaimerS,
-        tuckpointUniform: this.state.tuckpointUniform,
-        surveyInvite: this.state.surveyInvite,
-        surveyInviteDave: this.state.surveyInviteDave,
-        customerClean: this.state.customerClean,
-        additionalWork: this.state.additionalWork,
-        warrantyAsStated: this.state.warrantyAsStated,
-        existingConcrete: this.state.existingConcrete,
-      };
+      this.props.toggleEstimateSpinner();
       this.props.generatePDF({
         variables: {
           custid: this.props.currentCustomer,
-          generics: gen,
-          text: this.state.customText,
+          generics: this.props.generics,
+          text: this.props.customText,
           preview: true,
           user: this.props.profile,
         },
       })
     .then((confirm) => {
       if (confirm.data.generatePDFEstimate) {
+        this.props.toggleEstimateSpinner();
         this.setState({
           loadingButton: false,
           estimateUrl: confirm.data.generatePDFEstimate.pdfUrl,
@@ -131,37 +72,6 @@ class _EstimatesContainer extends React.Component {
   };
 
   sendEstimate = () => {
-    const gen = {
-      watertest: this.state.watertest,
-      concreteSteps: this.state.concreteSteps,
-      concreteCare: this.state.concreteCare,
-      refacingSlices: this.state.refacingSlices,
-      refacingComplete: this.state.refacingComplete,
-      coping: this.state.coping,
-      flagstone: this.state.flagstone,
-      flashing: this.state.flashing,
-      fwarranty: this.state.fwarranty,
-      obc: this.state.obc,
-      nbc: this.state.nbc,
-      chimney: this.state.chimney,
-      pargeex: this.state.pargeex,
-      pwarranty: this.state.pwarranty,
-      retaining: this.state.retaining,
-      roof: this.state.roof,
-      sills: this.state.sills,
-      tuckpoint: this.state.tuckpoint,
-      custom: this.state.custom,
-      waterproofing: this.state.waterproofing,
-      disclaimerA: this.state.disclaimerA,
-      disclaimerS: this.state.disclaimerS,
-      tuckpointUniform: this.state.tuckpointUniform,
-      surveyInvite: this.state.surveyInvite,
-      surveyInviteDave: this.state.surveyInviteDave,
-      customerClean: this.state.customerClean,
-      additionalWork: this.state.additionalWork,
-      warrantyAsStated: this.state.warrantyAsStated,
-      existingConcrete: this.state.existingConcrete,
-    };
     AlertIOS.alert(
       'Are you sure?',
        'Estimate will be sent to customer',
@@ -170,11 +80,10 @@ class _EstimatesContainer extends React.Component {
           onPress: () => this.props.generatePDF({
             variables: {
               custid: this.props.currentCustomer,
-              generics: gen,
-              text: this.state.customText,
+              generics: this.props.generics,
+              text: this.props.customText,
               preview: false,
               user: this.props.profile,
-
             },
           }).then((res) => {
              // console.log(res)
@@ -223,18 +132,73 @@ class _EstimatesContainer extends React.Component {
             style={MasterStyleSheet.EstimateModalColLeft}
           >
             <Row
-              size={80}
+              size={75}
             >
-              <View
-                style={estimateStyles.surveyResultPhotosView}
-              />
+              <Swiper
+                showsButtons
+                style={MasterStyleSheet.EstimateMainSwipe}
+                width={window.width / 2}
+              >
+                { this.props.data.getFinishedSurveyQuery.map((survey, idx) => (
+                  <View
+                    key={idx}
+                  >
+                    <Card
+                      title={survey.heading}
+                      containerStyle={{
+                        borderRadius: 15,
+                        height: window.height / 1.15,
+                        width: window.width / 2.060,
+                      }}
+                    >
+                      <Swiper
+                        width={window.width / 2}
+                        height={window.height / 2}
+                      >
+                        {survey.photos.map((photo, idx) => (
+                          <View
+                            key={idx}
+                            style={MasterStyleSheet.surveyResultInsideView}
+                          >
+                            <TouchableHighlight
+                              onPress={() => this.selectImage(photo.url)}
+                            >
+                              <Image
+                                style={MasterStyleSheet.surveyResultPhotos}
+                                source={{ uri: photo.url }}
+                              />
+                            </TouchableHighlight>
+                          </View>
+          ))}
+                      </Swiper>
+                      <Card
+                        containerStyle={{
+                          backgroundColor: '#FFFFA5',
+                          width: window.width / 2.2,
+                          height: window.height / 3.7,
+                          borderRadius: 15,
+                        }}
+                      >
+                        <ScrollView
+                          contentContainerStyle={MasterStyleSheet.surveyResultsNotesView}
+                        >
+                          { survey.notes.map((note, idx) => (
+                            <View key={idx}>
+                              <Text h3> {note.description}</Text>
+                              <Text h4> {note.text}</Text>
+                            </View>
+                ))}
+                        </ScrollView>
+                      </Card>
+                    </Card>
+
+                  </View>
+        ))}
+              </Swiper>
             </Row>
 
             <Row
-              style={{
-                // backgroundColor: 'blue'
-              }}
-              size={20}
+              size={16}
             />
           </Col>
           <Col
@@ -245,11 +209,12 @@ class _EstimatesContainer extends React.Component {
               style={MasterStyleSheet.EstimatePreviewCard}
             >
               <Grid>
-
-
                 <PriceList
+                  sendEstimate={this. sendEstimate}
+                  createPDFPreview={this.previewEstimate}
                   id={this.props.id}
                   customer={this.props.data.customer}
+                  prices={this.props.data.customer.prices}
                 />
               </Grid>
             </View>
@@ -270,6 +235,14 @@ class _EstimatesContainer extends React.Component {
     );
   }
 }
+const mapGenericStateToProps = state => ({
+  generics: state.generics,
+});
+
+const mapCustomStateToProps = state => ({
+  customText: state.customText,
+});
+
 const mapStateToProps = state => ({
   currentCustomer: state.currentCustomer,
 });
@@ -277,11 +250,25 @@ const mapStateToProps = state => ({
 const mapProfileStateToProps = state => ({
   profile: state.profile,
 });
+const mapUIStateToProps = state => ({
+  ui: state.ui,
+});
+const mapDataToProps = state => ({
+  ui: state.ui,
+});
 
+const mapActionToggleEstimateSpinner = dispatch => ({
+  toggleEstimateSpinner() {
+    dispatch({ type: 'TOGGLE_ESTIMATE_SPINNER' });
+  },
+});
 
 const EstimatesContainer = compose(
     graphql(generatePDF, { name: 'generatePDF' }),
+    connect(mapUIStateToProps, mapActionToggleEstimateSpinner),
     connect(mapStateToProps, null),
+    connect(mapGenericStateToProps),
+    connect(mapCustomStateToProps),
     connect(mapProfileStateToProps, null),
     graphql(getFinishedSurvey, {
       options: ({ id }) => ({ variables: { id }, pollInterval: 2000 }),

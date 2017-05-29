@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
-
 import {
   View,
+  Text,
   StyleSheet,
   TextInput,
 } from 'react-native';
@@ -11,7 +11,7 @@ import {
 class _AdditionalInfoCard extends React.Component {
   constructor() {
     super();
-    this.state = { someKey: 'someValue' };
+    this.state = { customText: '' };
   }
 
   getDescription = () => {
@@ -28,6 +28,11 @@ class _AdditionalInfoCard extends React.Component {
       this.props.savePriceAmount('');
     }
   }
+  handleKeyDownCustom = (e) => {
+    if (e.nativeEvent.key === 'Enter') {
+      this.props.saveCustomText(this.state.customText);
+    }
+  }
   render() {
     return (
       <View
@@ -42,28 +47,53 @@ class _AdditionalInfoCard extends React.Component {
           borderTopColor: '#BDC2C9',
         }}
       >
-        <TextInput
-          keyboardType={'numeric'}
+        {this.props.second ?
+          <View>
+            <TextInput
+              multiline
+              autoFocus
+              enablesReturnKeyAutomatically
+              placeholder={'Custom Text'}
+              value={this.state.customText}
+              onChangeText={customText => this.setState({ customText })}
+              onKeyPress={e => this.handleKeyDownCustom(e)}
+              style={{
+                borderWidth: 1,
+                borderRadius: 20,
+                width: 580,
+                height: 120,
+                padding: 10,
+                bottom: 10,
+                fontSize: 12,
+              }}
+            />
+          </View>
+        :
+          <View>
+            <TextInput
+              keyboardType={'numeric'}
+              autoFocus
+              enablesReturnKeyAutomatically
+              onKeyPress={e => this.handleKeyDownAmount(e)}
+              placeholder={'Dollar Amount'}
+              value={this.props.priceAmount}
+              onChangeText={text => this.props.savePriceAmount(text)}
+              style={{
+                borderWidth: 1,
+                borderRadius: 20,
+                alignSelf: 'center',
+                width: 580,
+                height: 80,
+                padding: 10,
+                bottom: 10,
+                fontSize: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
+          </View>
+    }
 
-          autoFocus
-          enablesReturnKeyAutomatically
-          onKeyPress={e => this.handleKeyDownAmount(e)}
-          placeholder={'Dollar Amount'}
-          value={this.props.priceAmount}
-          onChangeText={text => this.props.savePriceAmount(text)}
-          style={{
-            borderWidth: 1,
-            borderRadius: 20,
-            alignSelf: 'center',
-            width: 580,
-            height: 80,
-            padding: 10,
-            bottom: 10,
-            fontSize: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        />
       </View>
     );
   }
@@ -84,6 +114,11 @@ const mapActionSavePriceAmount = dispatch => ({
     dispatch({ type: 'SAVE_PRICE_AMOUNT', payload: priceAmount });
   },
 });
+const mapActionSaveCustomText = dispatch => ({
+  saveCustomText(text) {
+    dispatch({ type: 'SAVE_CUSTOM_TEXT', payload: text });
+  },
+});
 
 const mapActionSavePriceDetails = dispatch => ({
   savePriceDetails(priceDetails) {
@@ -94,6 +129,7 @@ const mapActionSavePriceDetails = dispatch => ({
 const AdditionalInfoCard = compose(
   connect(mapPriceAmountStateToProps, mapActionSavePriceAmount),
   connect(null, mapActionSavePriceDetails),
+  connect(null, mapActionSaveCustomText),
   connect(mapPriceDecriptionStateToProps),
   connect(mapPricePickerStateToProps),
 )(_AdditionalInfoCard);

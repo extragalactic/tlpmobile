@@ -24,15 +24,30 @@ const styles = StyleSheet.create({
   },
 });
 
-export default () => (
-  <View style={styles.container}>
-    <StatusBar
-      barStyle="light-content"
-    />
-    <ScrollView
-      style={styles.scrollView}
-    >
-      <Row zIndex={100} />
-    </ScrollView>
-  </View>
-);
+
+class PriceList extends React.Component {
+  constructor() {
+    super();
+    this.count = 90;
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <StatusBar
+          barStyle="light-content"
+        />
+        <ScrollView
+          style={styles.scrollView}
+        >
+          <Row zIndex={100} top createPDFPreview={this.props.createPDFPreview}  sendEstimate={this.props.sendEstimate}/>
+          <Row zIndex={90} top second />
+          {this.props.prices.map((price, idx) => (
+            <Row zIndex={this.count = this.count - 10} top={false} second={false} price={price} index={idx} />),
+      )}
+        </ScrollView>
+      </View>
+    );
+  }
+}
+
+export default PriceList;

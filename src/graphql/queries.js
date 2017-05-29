@@ -1,4 +1,3 @@
-
 import gql from 'graphql-tag';
 
 const getMessages = gql `
@@ -390,7 +389,6 @@ const getFinishedSurvey = gql `
       }
     }
   }
-
 }`;
 
 const getMyCustomers = gql `
