@@ -55,18 +55,17 @@ class _UserHome extends React.Component {
         style={styles.container}
       >
         <Text> Hey {this.props.data.user.firstName}! Choose an option below</Text>
-        
-         <Button
-              title={'Surveys'}
-              buttonStyle={MasterStyleSheet.homeButtonStyle}
-              onPress={() => Actions.surveyorHome()}
-            />
-           <Button
-              title={'Estimates'}
-              buttonStyle={MasterStyleSheet.estimateButtonStyle}
-              onPress={() => Actions.estimatorHome()}
-            />
-         <Button
+        <Button
+          title={'Surveys'}
+          buttonStyle={MasterStyleSheet.homeButtonStyle}
+          onPress={() => Actions.surveyorHome()}
+        />
+        <Button
+          title={'Estimates'}
+          buttonStyle={MasterStyleSheet.estimateButtonStyle}
+          onPress={() => Actions.estimatorHome()}
+        />
+        <Button
           title={'Search'}
           buttonStyle={MasterStyleSheet.searchButtonStyle}
           onPress={() => Actions.searchContainer()}
@@ -88,61 +87,3 @@ const UserHome = compose(
 )(_UserHome);
 
 export default UserHome;
-/*
- { user.surveyor ?
-          <View>
-            <Button
-              title={'New Customers'}
-              buttonStyle={MasterStyleSheet.homeButtonStyle}
-              onPress={() => Actions.customerList({ params: { id: this.props.profile, type: 'newcustomers' } })}
-            />
-            <Button
-              title={'Customers to Followup'}
-              buttonStyle={MasterStyleSheet.homeButtonStyle}
-              onPress={() => Actions.customerList({ params: { id: this.props.profile, type: 'followup' } })}
-
-            />
-            <Button
-              title={'Appointments'}
-              buttonStyle={MasterStyleSheet.homeButtonStyle}
-              onPress={() => Actions.customerList({ params: { id: this.props.profile, type: 'onsite' } })}
-            />
-            <Button
-              title={'Surveys'}
-              buttonStyle={MasterStyleSheet.homeButtonStyle}
-              onPress={() => Actions.customerList({ params: { id: this.props.profile, type: 'inprogress' } })}
-
-            />
-            <Button
-              title={'Completed Surveys'}
-              buttonStyle={MasterStyleSheet.homeButtonStyle}
-              onPress={() => Actions.customerList({ params: { id: this.props.profile, type: 'surveycomplete' } })}
-            />
-          </View>
-          : null}
-        {user.estimator ?
-          <View>
-            <Button
-              title={'Ready for Pricing'}
-              buttonStyle={MasterStyleSheet.readyPricingButtonStyle}
-              onPress={() => Actions.customerListContainerQueue({ params: { id: this.props.profile, type: 'estimatequeue' } })}
-            />
-            <Button
-              title={'New Estimates'}
-              buttonStyle={MasterStyleSheet.newEstimatesButtonStyle}
-              onPress={() => Actions.customerList({ params: { id: this.props.profile, type: 'myestimates' } })}
-            />
-            <Button
-              title={'Estimate Complete'}
-              buttonStyle={MasterStyleSheet.estimateCompleteButtonStyle}
-              onPress={() => Actions.customerList({ params: { id: this.props.profile, type: 'estimatesent' } })}
-            />
-          </View> : null}
-        <Button
-          title={'Search'}
-          buttonStyle={MasterStyleSheet.searchButtonStyle}
-          onPress={() => Actions.searchContainer()}
-        />
-
-
-*/

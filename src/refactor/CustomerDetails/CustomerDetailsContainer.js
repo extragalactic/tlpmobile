@@ -253,7 +253,7 @@ class _CustomerDetails extends Component {
         type="static"
         open={this.state.drawer}
         content={<ContactCustomerMenu customer={this.props.data.customer} />}
-        tapToClose
+        //tapToClose
         openDrawerOffset={0.3} // 20% gap on the right side of drawer
         panCloseMask={0.2}
         closedDrawerOffset={-4}

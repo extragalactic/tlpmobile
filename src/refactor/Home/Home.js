@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { View, Text, Image, Button } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { compose, graphql } from 'react-apollo';
-import LoggedIn from './LoggedIn';
-import NoLogin from './NoLogin';
-import { checkUserLogin, getuserId } from '../LocalStore/StoreCreds';
+import { Actions } from 'react-native-router-flux';
+import Auth0Lock from 'react-native-lock';
+import Config from 'react-native-config';
+import { checkUserLogin, getuserId, saveProfile } from '../LocalStore/StoreCreds';
 import { getUser, checkConnection } from '../../graphql/mutations';
 
 class _Home extends Component {
@@ -22,6 +25,10 @@ class _Home extends Component {
     saveUserObject: () => {},
   }
 
+  constructor() {
+    super();
+    this.lock = new Auth0Lock({ clientId: Config.AUTH0_ID, domain: Config.AUTH0_DOMAIN }, {});
+  }
   componentDidMount() {
     this.checkGraphqlConnection();
     this.checkUserLogin();
@@ -32,7 +39,11 @@ class _Home extends Component {
       this.checkUserLogin();
     }, 1000);
   }
-
+  logIn = () => {
+    this.lock.show({}, (err, profile, token) => {
+      saveProfile(token.idToken, profile.identities[0].userId);
+    });
+  };
   checkGraphqlConnection = () => this.props.checkConnection()
       .then((res) => {
         if (res.data.checkConnection) {
@@ -60,16 +71,48 @@ class _Home extends Component {
     });
   }
   render() {
-    if (this.props.authStatus && this.props.graphqlStatus) {
-      return (
-        <LoggedIn />
-      );
-    }
     return (
-      <NoLogin
-        serverIsOnline={this.props.graphqlStatus}
-       /> 
-    );
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+    <Text> Build # {DeviceInfo.getBuildNumber()} </Text>
+      <Image
+        style={{width: 300, height: 300, right: 12}}
+        source={{uri: 'https://s3.ca-central-1.amazonaws.com/3lpm/webfiles/3lplogo.png'}}
+      />
+    { this.props.authStatus ? <View><Text>
+      You are logged in!
+      </Text></View> :<View>
+      <Text> You have not been authenticated </Text>
+        <Button
+       title={"login"}
+       onPress={()=> this.logIn()}
+      
+       />
+       </View>}
+
+  { this.props.graphqlStatus ? <View><Text>
+      You are connected!
+      </Text></View> :<View>
+      <Text> You are not connected </Text>
+    
+       </View>}
+        { this.props.authStatus && this.props.graphqlStatus ? <View>
+         <Button 
+         title={"Enter"}
+         onPress={() => Actions.LoggedIn()}
+       />
+         </View>: null}
+
+  </View>
+  
+
+    )
+
   }
 }
 
@@ -119,3 +162,18 @@ const Home = compose(
 )(_Home);
 
 export default Home;
+
+/*
+  if (this.props.authStatus && this.props.graphqlStatus) {
+      return (
+        <LoggedIn />
+      );
+    }
+    return (
+      <NoLogin
+        serverIsOnline={this.props.graphqlStatus}
+       /> 
+    );
+
+
+*/

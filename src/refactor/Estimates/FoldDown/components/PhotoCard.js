@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
 });
 
 class _PhotoCard extends React.Component {
-  constructor() {
-    super();
-  }
   deletePricefromDB = (description) => {
     AlertIOS.alert(
       'Are you sure?',
@@ -58,14 +55,13 @@ class _PhotoCard extends React.Component {
         <ScrollView>
           { this.props.top ?
             <View>
-
-      {this.props.second ? <View>
+              { this.props.second ? <View>
                 {
       Object.keys(this.props.generics).map((item, index, value) => {
         if (this.props.generics[value[index]]) {
           return generics.map((generic) => {
             if (generic.prop === value[index]) {
-             return generic.text();
+              return generic.text();
             }
           });
         }

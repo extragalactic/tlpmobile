@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Icon } from 'react-native-elements';
-import { View } from 'react-native';
+import { Icon, Button } from 'react-native-elements';
+import { View, Linking } from 'react-native';
 import Communications from 'react-native-communications';
 import { MasterStyleSheet } from '../../style/MainStyles';
 
@@ -12,7 +12,7 @@ const ContactCustomerMenu = ({ customer }) => (
           name="phone-iphone"
           color="#517fa4"
           raised
-          onPress={() => Communications.phonecall(customer.cphone, true)}
+          onPress={() => Communications.phonecall(customer.hphone, true)}
         /> : null
    }
       {customer.hphone ?
