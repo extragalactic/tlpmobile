@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { View, Text, Image, Button } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { compose, graphql } from 'react-apollo';
+import { Actions } from 'react-native-router-flux';
 import Auth0Lock from 'react-native-lock';
 import Config from 'react-native-config';
 import { checkUserLogin, getuserId, saveProfile } from '../LocalStore/StoreCreds';
@@ -84,7 +85,7 @@ class _Home extends Component {
         source={{uri: 'https://s3.ca-central-1.amazonaws.com/3lpm/webfiles/3lplogo.png'}}
       />
     { this.props.authStatus ? <View><Text>
-      You are authenticated!
+      You are logged in!
       </Text></View> :<View>
       <Text> You have not been authenticated </Text>
         <Button
@@ -100,6 +101,12 @@ class _Home extends Component {
       <Text> You are not connected </Text>
     
        </View>}
+        { this.props.authStatus && this.props.graphqlStatus ? <View>
+         <Button 
+         title={"Enter"}
+         onPress={() => Actions.LoggedIn()}
+       />
+         </View>: null}
 
   </View>
   

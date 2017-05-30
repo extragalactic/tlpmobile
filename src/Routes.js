@@ -20,6 +20,7 @@ import SearchContainer from './refactor/SearchCustomer/SearchContainer';
 import PhotoEditorContainer from './refactor/PhotoGallery/PhotoEditorContainer';
 import SurveyorHome from './refactor/Home/SurveyorHome';
 import EstimatorHome from './refactor/Home/EstimatorHome';
+import LoggedIn from './refactor/Home/LoggedIn';
 
 const routes = Actions.create(
   <Scene key="root">
@@ -27,9 +28,14 @@ const routes = Actions.create(
       key="home"
       component={Home}
     />
-        <Scene
+    <Scene
       key={'surveyorHome'}
       component={SurveyorHome}
+      passProps
+    />  
+    <Scene
+      key={'LoggedIn'}
+      component={LoggedIn}
       passProps
     />    
     <Scene
