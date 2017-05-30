@@ -145,7 +145,6 @@ class _PhotoGalleryDetails extends React.Component {
           <PhotoEditorContainer
             style={{
               flex: 1,
-              width: 800,
               marginTop: 200,
             }}
             onBack={this.returnToPhotoBrowser}
