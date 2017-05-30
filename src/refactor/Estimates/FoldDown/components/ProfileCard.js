@@ -144,18 +144,15 @@ class _Row extends Component {
 
               }}
             >
-
-
               {!this.props.second ? <TextInput
                 placeholder={'Work Description'}
-
                 style={{
                   borderWidth: 1,
                   borderRadius: 20,
                   alignSelf: 'center',
-                  width: 580,
+                  width: this.props.ui.width / 2.4,
                   height: 80,
-                  padding: 10,
+                  padding: 3,
                   bottom: 10,
                 }}
                 multiline
@@ -212,12 +209,17 @@ const mapStateToProps = state => ({
   currentCustomer: state.currentCustomer,
 });
 
+const mapUiStateToProps = state => ({
+  ui: state.ui,
+});
+
 const Row = compose(
   connect(mapStateToProps),
   connect(mapPricePickerStateToProps),
   connect(mapPriceDecriptionStateToProps, mapActionSavePriceDecription),
   connect(mapPriceDetailsStateToProps, mapActionSavePriceDetails),
   graphql(addNewPrice, { name: 'addNewPrice' }),
+  connect(mapUiStateToProps),
 )(_Row);
 
 export default Row;

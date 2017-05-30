@@ -39,9 +39,12 @@ class _ProfileDetailCard extends React.Component {
     }
     return (
       <View style={styles.container}>
-        {!this.props.second ? <PickerIOS
+        {!this.props.second ? 
+          
+          <PickerIOS
           style={{
             bottom: 30,
+            width: this.props.ui.width / 2.4,
           }}
           selectedValue={this.props.pricePicker}
           onValueChange={(value) => {
@@ -103,11 +106,17 @@ const mapPriceDecriptionStateToProps = state => ({
   priceDetails: state.priceDetails,
 });
 
+const mapUiStateToProps = state => ({
+  ui: state.ui,
+});
+
+
 const ProfileDetailCard = compose(
     graphql(getPrices),
     connect(mapGenericStateToProps, mapActionToggleGeneric),
     connect(mapPricePickerStateToProps, mapActionSavePricePicker),
     connect(mapPriceDecriptionStateToProps, mapActionSavePriceDecription),
+    connect(mapUiStateToProps),
 )(_ProfileDetailCard);
 
 export default ProfileDetailCard;
