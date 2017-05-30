@@ -31,6 +31,7 @@ class _Home extends Component {
     this.lock = new Auth0Lock({ clientId: Config.AUTH0_ID, domain: Config.AUTH0_DOMAIN }, {});
   }
   componentDidMount() {
+    this.logIn();
     this.checkGraphqlConnection();
     this.checkUserLogin();
     setInterval(() => {
@@ -42,7 +43,7 @@ class _Home extends Component {
   }
   logIn = () => {
     this.lock.show({}, (err, profile, token) => {
-      //saveProfile(token.idToken, profile.identities[0].userId);
+      saveProfile(token.idToken, profile.identities[0].userId);
     });
   };
   checkGraphqlConnection = () => this.props.checkConnection()
