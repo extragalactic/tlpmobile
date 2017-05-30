@@ -52,7 +52,6 @@ class _NoLogin extends React.Component {
           buttonStyle={MasterStyleSheet.mainButtonStyle}
           onPress={() => this.logIn()}
         /> :
-
         <View style={styles.container} >
           <Text>
           Cant Connect to Server!

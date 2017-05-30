@@ -8,8 +8,6 @@ import Config from 'react-native-config';
 import { checkUserLogin, getuserId, saveProfile } from '../LocalStore/StoreCreds';
 import { getUser, checkConnection } from '../../graphql/mutations';
 
-
-
 class _Home extends Component {
   static propTypes = {
     saveProfile: PropTypes.func.isRequired,
@@ -31,7 +29,6 @@ class _Home extends Component {
     this.lock = new Auth0Lock({ clientId: Config.AUTH0_ID, domain: Config.AUTH0_DOMAIN }, {});
   }
   componentDidMount() {
-    this.logIn();
     this.checkGraphqlConnection();
     this.checkUserLogin();
     setInterval(() => {
