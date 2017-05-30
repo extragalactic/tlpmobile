@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import { saveProfile } from '../LocalStore/StoreCreds';
 import { MasterStyleSheet } from '../../style/MainStyles';
-    console.log(Config)
 
 const styles = StyleSheet.create({
   container: {

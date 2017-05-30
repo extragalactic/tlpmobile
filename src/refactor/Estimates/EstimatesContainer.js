@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, Image, Dimensions, ScrollView, AlertIOS, TouchableHighlight, TextInput, SegmentedControlIOS } from 'react-native';
+import { View, Image, Dimensions, ScrollView, AlertIOS, TouchableHighlight } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Text, Card, Button, CheckBox, ListItem, List, Icon, SwipeDeck } from 'react-native-elements';
+import { Text, Card } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
 import { graphql, compose } from 'react-apollo';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
 import { generatePDF } from '../../graphql/mutations';
@@ -12,9 +11,8 @@ import { getFinishedSurvey } from '../../graphql/queries';
 import { MasterStyleSheet } from '../../style/MainStyles';
 import ZoomViewModal from '../../components/photoGallery/zoomViewModal';
 import EstimatePreviewModal from '../../components/Modals/estimatePreviewModal';
-import generics from './generics';
-import { estimateStyles } from '../Style/estimateStyle';
 import PriceList from './FoldDown/PriceList';
+
 const window = Dimensions.get('window');
 const { width, height } = Dimensions.get('window');
 
@@ -72,25 +70,47 @@ class _EstimatesContainer extends React.Component {
   };
 
   sendEstimate = () => {
-    AlertIOS.alert(
+    if (this.props.data.customer.estimateHistory.length > 1) {
+      AlertIOS.alert(
+      'ESTIMATE ALREADY SENT!',
+       'An estimate has beem sent to this customer, Do you really want to send again?',
+        [{ text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+          { text: 'Send to Customer',
+            onPress: () => this.props.generatePDF({
+              variables: {
+                custid: this.props.currentCustomer,
+                generics: this.props.generics,
+                text: this.props.customText,
+                preview: false,
+                user: this.props.profile,
+              },
+            }).then((res) => {
+             // console.log(res)
+            }),
+          },
+        ],
+    );
+    } else {
+      AlertIOS.alert(
       'Are you sure?',
        'Estimate will be sent to customer',
-      [{ text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        { text: 'Send to Customer',
-          onPress: () => this.props.generatePDF({
-            variables: {
-              custid: this.props.currentCustomer,
-              generics: this.props.generics,
-              text: this.props.customText,
-              preview: false,
-              user: this.props.profile,
-            },
-          }).then((res) => {
+        [{ text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+          { text: 'Send to Customer',
+            onPress: () => this.props.generatePDF({
+              variables: {
+                custid: this.props.currentCustomer,
+                generics: this.props.generics,
+                text: this.props.customText,
+                preview: false,
+                user: this.props.profile,
+              },
+            }).then((res) => {
              // console.log(res)
-          }),
-        },
-      ],
+            }),
+          },
+        ],
     );
+    }
   }
 
   selectImage = (image) => {
@@ -251,9 +271,6 @@ const mapProfileStateToProps = state => ({
   profile: state.profile,
 });
 const mapUIStateToProps = state => ({
-  ui: state.ui,
-});
-const mapDataToProps = state => ({
   ui: state.ui,
 });
 
