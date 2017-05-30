@@ -33,7 +33,7 @@ class _UserHome extends React.Component {
     data: {},
   }
   componentDidMount() {
-      Permissions.requestPermission('photo');
+    Permissions.requestPermission('photo');
     setTimeout(() => {
       OneSignal.sendTags({
         userid: this.props.data.user._id,

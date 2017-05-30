@@ -52,6 +52,7 @@ const initialState = {
 
 export const SAVE_PRICE_DETAILS = 'SAVE_PRICE_DETAILS';
 export const DELETE_PRICE = 'DELETE_PRICE';
+export const CLEAR_PRICE_DETAILS = 'CLEAR_PRICE_DETAILS';
 export const SAVE_PRICE_DETAILS_COMPLETE = 'SAVE_PRICE_DETAILS_COMPLETE';
 
 export const priceDetailsReducer = (state = initialState, action) => {
@@ -62,18 +63,17 @@ export const priceDetailsReducer = (state = initialState, action) => {
           amount5: action.payload.amount,
           description5: action.payload.description,
         });
-
-     } else if (state.amount0 && state.amount1 && state.amount2 && state.amount3) {
+      } else if (state.amount0 && state.amount1 && state.amount2 && state.amount3) {
         return Object.assign({}, state, {
           amount4: action.payload.amount,
           description4: action.payload.description,
         });
-     } else if (state.amount0 && state.amount1 && state.amount2 ) {
-      return Object.assign({}, state, {
-          amount3: action.payload.amount,
-          description3: action.payload.description,
-        });
-     }  else if (state.amount0 && state.amount1 ) {
+     } else if (state.amount0 && state.amount1 && state.amount2) {
+       return Object.assign({}, state, {
+         amount3: action.payload.amount,
+         description3: action.payload.description,
+      });
+     }  else if (state.amount0 && state.amount1) {
      return Object.assign({}, state, {
           amount2: action.payload.amount,
           description2: action.payload.description,
@@ -89,11 +89,26 @@ export const priceDetailsReducer = (state = initialState, action) => {
           amount0: action.payload.amount,
           description0: action.payload.description,
         });
-     case DELETE_PRICE: 
+     case DELETE_PRICE:
    return Object.assign({}, state, {
      [`amount${action.payload}`]: '',
      [`description${action.payload}`]: ''
    })
+    case CLEAR_PRICE_DETAILS:
+      return Object.assign({}, state, { 
+        amount0: '',
+        description0: '',
+        amount1: '',
+        description1: '',
+        amount2: '',
+        description2: '',
+        amount3: '',
+        description3: '',
+        amount4: '',
+        description4: '',
+        amount5: '',
+        description5: '',
+      });
     default:
       return state;
   }

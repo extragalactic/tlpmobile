@@ -413,6 +413,15 @@ const addNewPrice = gql `
       amount: $amount5
     }
   })
+  {
+    description
+    amount
+    option1{
+      description
+      amount
+    }
+    
+  }
 }`;
 
 const searchCustomer = gql `

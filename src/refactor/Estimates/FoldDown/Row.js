@@ -19,7 +19,7 @@ if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const ROW_HEIGHT = 180;
+const ROW_HEIGHT = 280;
 
 const Spacer = ({ height }) => (
   <View
@@ -49,7 +49,6 @@ export default class Row extends Component {
   }
   refresh = () => {
     this.setState(this.state);
-    console.log(this.state);
   }
   flip() {
     this.setState({
@@ -77,13 +76,20 @@ export default class Row extends Component {
 
   renderFrontface() {
     return (
-      <InfoCard onPress={this.flip} />
+      <InfoCard
+        createPDFPreview={this.props.top ? this.props.createPDFPreview : (() => {})}
+        sendEstimate={this.props.top ? this.props.sendEstimate : (() => {})}
+        onPress={this.flip}
+        top={this.props.top}
+        second={this.props.second}
+        price={this.props.price}
+      />
     );
   }
 
   renderBackface() {
     return (
-      <ProfileCard refresh={this.refresh} onPress={this.flip} />
+      <ProfileCard refresh={this.refresh} second={this.props.second} onPress={this.flip} />
     );
   }
 
@@ -113,7 +119,14 @@ export default class Row extends Component {
             renderBackface={this.renderBackface}
             renderFrontface={this.renderFrontface}
           >
-            <PhotoCard refresh={this.refresh} onPress={this.flip} />
+            <PhotoCard
+              refresh={this.refresh}
+              onPress={this.flip}
+              top={this.props.top}
+              second={this.props.second}
+              price={this.props.price}
+              index={this.props.index}
+            />
           </FoldView>
 
         </View>

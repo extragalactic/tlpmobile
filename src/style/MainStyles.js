@@ -424,5 +424,4 @@ const MasterStyleSheet = StyleSheet.create({
    },
 });
 
-export {MasterStyleSheet,
-};
+export { MasterStyleSheet };

@@ -2,6 +2,7 @@ import React, {
   Component,
 } from 'react';
 import { connect } from 'react-redux';
+import { Button, CheckBox } from 'react-native-elements';
 import { graphql, compose } from 'react-apollo';
 import {
   View,
@@ -9,18 +10,38 @@ import {
   TouchableHighlight,
   StyleSheet,
   TextInput,
+  ScrollView,
 } from 'react-native';
+import generics from '../../../Estimates/generics';
 
 import FoldView from 'react-native-foldview';
+import {
+        addPrice,
+        addNewPrice,
+        deletePrice,
+        editPriceDescription,
+        editPriceAmount,
+       } from '../../../../graphql/mutations';
 
 import ProfileDetailCard from './ProfileDetailCard';
 import AdditionalInfoCard from './AdditionalInfoCard';
+import MasterStyleSheet from '../../../../style/MainStyles';
 
 class _Row extends Component {
 
   componentWillMount() {
     this.renderBackface = this.renderBackface.bind(this);
     this.renderInnerBackFace = this.renderInnerBackFace.bind(this);
+  }
+
+  submitPrice = () => {
+    const payload = Object.assign({}, this.props.priceDetails, {
+      custid: this.props.currentCustomer,
+    });
+    this.props.addNewPrice({
+      variables: payload,
+    })
+    .then(() => this.props.clearPriceDetails({}));
   }
 
   renderBlankFace() {
@@ -43,7 +64,7 @@ class _Row extends Component {
           renderFrontface={this.renderBlankFace}
           renderBackface={this.renderInnerBackFace}
         >
-          <AdditionalInfoCard refresh={this.props.refresh} onPress={onPress} />
+          <AdditionalInfoCard refresh={this.props.refresh} second={this.props.second} onPress={onPress} />
         </FoldView>
 
       </View>
@@ -65,33 +86,40 @@ class _Row extends Component {
       >
         <View
           style={{
-            backgroundColor: '#FFBD18',
+          //  backgroundColor: '#FFBD18',
             flex: 1,
-            margin: 14,
+            flexDirection: 'row',
+           // margin: 14,
             borderRadius: 2,
           }}
         >
-          <TouchableHighlight
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
+
+          <Button
+            title={'Save'}
+            buttonStyle={{
+              width: 275,
+              height: 86,
+              backgroundColor: 'green',
+              borderRadius: 10,
+            }}
+            onPress={this.submitPrice}
+          />
+          <Button
+            title={'Close'}
+            buttonStyle={{
+              width: 275,
+              height: 86,
+              backgroundColor: 'red',
+              borderRadius: 10,
             }}
             onPress={onPress}
-          >
-            <Text>
-              Close
-            </Text>
-          </TouchableHighlight>
-
+          />
         </View>
       </View>
     );
   }
-
   render() {
     const onPress = this.props.onPress;
-
     return (
       <View
         style={{
@@ -116,7 +144,9 @@ class _Row extends Component {
 
               }}
             >
-              <TextInput
+
+
+              {!this.props.second ? <TextInput
                 placeholder={'Work Description'}
 
                 style={{
@@ -131,28 +161,25 @@ class _Row extends Component {
                 multiline
                 defaultValue={this.props.pricePicker}
                 onChangeText={text => this.props.savePriceDescription(text)}
-              />
+              /> :
+
+null
+
+      }
 
             </View>
-
-
           </View>
-
         </View>
 
         <View style={{ flex: 1 }}>
-
           <FoldView
             renderFrontface={this.renderBlankFace}
             renderBackface={this.renderBackface}
           >
-            <ProfileDetailCard onPress={onPress} />
+            <ProfileDetailCard second={this.props.second} onPress={onPress} />
           </FoldView>
-
         </View>
-
       </View>
-
     );
   }
 }
@@ -160,6 +187,12 @@ class _Row extends Component {
 const mapActionSavePriceDecription = dispatch => ({
   savePriceDescription(priceDescription) {
     dispatch({ type: 'SAVE_PRICE_DESCRIPTION', payload: priceDescription });
+  },
+});
+
+const mapActionSavePriceDetails = dispatch => ({
+  clearPriceDetails(priceDetails) {
+    dispatch({ type: 'CLEAR_PRICE_DETAILS', payload: priceDetails });
   },
 });
 
@@ -171,10 +204,20 @@ const mapPricePickerStateToProps = state => ({
   pricePicker: state.pricePicker,
 });
 
+const mapPriceDetailsStateToProps = state => ({
+  priceDetails: state.priceDetails,
+});
+
+const mapStateToProps = state => ({
+  currentCustomer: state.currentCustomer,
+});
+
 const Row = compose(
+  connect(mapStateToProps),
   connect(mapPricePickerStateToProps),
   connect(mapPriceDecriptionStateToProps, mapActionSavePriceDecription),
+  connect(mapPriceDetailsStateToProps, mapActionSavePriceDetails),
+  graphql(addNewPrice, { name: 'addNewPrice' }),
 )(_Row);
 
 export default Row;
-

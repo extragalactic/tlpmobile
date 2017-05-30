@@ -1,8 +1,11 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { getPrices } from '../../../../graphql/queries';
+import { Button, CheckBox } from 'react-native-elements';
+import generics from '../../../Estimates/generics';
+import { MasterStyleSheet } from '../../../../style/MainStyles';
 
 import {
   View,
@@ -28,6 +31,7 @@ class _ProfileDetailCard extends React.Component {
     this.state = {};
   }
   render() {
+  //  console.log(this)
     if (this.props.data.loading) {
       return (
         <ActivityIndicator />
@@ -35,7 +39,7 @@ class _ProfileDetailCard extends React.Component {
     }
     return (
       <View style={styles.container}>
-        <PickerIOS
+        {!this.props.second ? <PickerIOS
           style={{
             bottom: 30,
           }}
@@ -52,9 +56,20 @@ class _ProfileDetailCard extends React.Component {
               label={price.description}
             />
         ))}
+        </PickerIOS> :
 
+        <ScrollView>
+          { generics.map(generic => (
+            <CheckBox
+              key={generic.prop}
+              title={generic.des}
+              onPress={() => this.props.toggleGeneric(generic.prop)}
+              checked={this.props.generics[generic.prop]}
+            />
+                     ))}
+        </ScrollView>
+  }
 
-        </PickerIOS>
       </View>
     );
   }
@@ -66,6 +81,14 @@ const mapActionSavePriceDecription = dispatch => ({
   },
 });
 
+const mapActionToggleGeneric = dispatch => ({
+  toggleGeneric(generic) {
+    dispatch({ type: 'TOGGLE_GENERICS_SELECTION', payload: generic });
+  },
+});
+const mapGenericStateToProps = state => ({
+  generics: state.generics,
+});
 const mapActionSavePricePicker = dispatch => ({
   savePricePicker(pricePicker) {
     dispatch({ type: 'SAVE_PRICE_PICKER', payload: pricePicker });
@@ -82,6 +105,7 @@ const mapPriceDecriptionStateToProps = state => ({
 
 const ProfileDetailCard = compose(
     graphql(getPrices),
+    connect(mapGenericStateToProps, mapActionToggleGeneric),
     connect(mapPricePickerStateToProps, mapActionSavePricePicker),
     connect(mapPriceDecriptionStateToProps, mapActionSavePriceDecription),
 )(_ProfileDetailCard);

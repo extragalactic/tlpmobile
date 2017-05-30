@@ -9,13 +9,16 @@ import { Router } from 'react-native-router-flux';
 import routes from './src/Routes';
 import { profileReducer, saveUserReducer } from './src/reducers/authReducer';
 import { customerReducer } from './src/reducers/currentCustomer';
+import { genericsReducer } from './src/reducers/genericsReducer';
 import
    { priceDescriptionReducer,
     priceAmountReducer,
     pricePickerReducer,
     priceDetailsReducer,
 } from './src/reducers/pricingReducer';
+import { uiReducer } from './src/reducers/uiReducers';
 import { authStatusReducer, graphqlStatusReducer } from './src/reducers/statusReducer';
+import { estimateReducer } from './src/reducers/estimateReducer';
 
 const client = new ApolloClient({
   connectToDevTools: true,
@@ -28,11 +31,8 @@ const client = new ApolloClient({
     },
   ),
 });
-
 console.disableYellowBox = true;
-
 const apollo = client.middleware();
-
 const combinedReducers =
   combineReducers({
     profile: profileReducer,
@@ -45,18 +45,20 @@ const combinedReducers =
     graphqlStatus: graphqlStatusReducer,
     pricePicker: pricePickerReducer,
     priceDetails: priceDetailsReducer,
+    generics: genericsReducer,
+    customText: estimateReducer,
+    ui: uiReducer,
   });
 
 const composeEnhancers = composeWithDevTools({ realtime: true, port: 8000 });
-
 const reduxStore = createStore(combinedReducers, composeEnhancers(
       applyMiddleware(apollo, thunk),
   ),
 );
-
 const tlpmobile = () => (
   <ApolloProvider
-    client={client} store={reduxStore}
+    client={client}
+    store={reduxStore}
   >
     <Router scenes={routes} />
   </ApolloProvider>

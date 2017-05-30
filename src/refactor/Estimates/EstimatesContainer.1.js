@@ -221,7 +221,6 @@ class _EstimatesContainer extends React.Component {
                 style={MasterStyleSheet.EstimateMainSwipe}
                 width={window.width / 2}
               >
-
                 { this.props.data.getFinishedSurveyQuery.map((survey, idx) => (
                   <View
                     key={idx}
@@ -234,7 +233,6 @@ class _EstimatesContainer extends React.Component {
                         width: window.width / 2.060,
                       }}
                     >
-
                       <Swiper
                         width={window.width / 2}
                         height={window.height / 2}
@@ -254,7 +252,6 @@ class _EstimatesContainer extends React.Component {
                             </TouchableHighlight>
                           </View>
           ))}
-
                       </Swiper>
                       <Card
                         containerStyle={{
@@ -280,7 +277,6 @@ class _EstimatesContainer extends React.Component {
 
                   </View>
         ))}
-
               </Swiper>
             </View>
           </Col>
