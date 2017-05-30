@@ -42,7 +42,7 @@ class _Home extends Component {
   }
   logIn = () => {
     this.lock.show({}, (err, profile, token) => {
-      saveProfile(token.idToken, profile.identities[0].userId);
+      //saveProfile(token.idToken, profile.identities[0].userId);
     });
   };
   checkGraphqlConnection = () => this.props.checkConnection()
@@ -91,7 +91,7 @@ class _Home extends Component {
       <Text> You have not been authenticated </Text>
         <Button
        title={"login"}
-       onPress={this.logIn}
+       onPress={()=> this.logIn()}
       
        />
        </View>}
