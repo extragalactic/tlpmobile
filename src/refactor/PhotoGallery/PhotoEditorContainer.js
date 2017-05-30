@@ -12,7 +12,8 @@ const styles = {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 10,
+    paddingTop: 0,
+    marginTop: 10,
   },
   webview: {
     flex: 1,
@@ -65,7 +66,7 @@ class PhotoEditorContainer extends React.Component {
         }
         <WebView
           style={styles.webview}
-          contentInset={{ top: 0, left: 0, bottom: 5, right: 0 }}
+          contentInset={{ top: 10, left: 0, bottom: 0, right: 0 }}
           scalesPageToFit
           onLoad={this.onLoadComplete}
           source={{ uri: `${BASE_URL}/photoedit/${custID}/${docID}` }}
