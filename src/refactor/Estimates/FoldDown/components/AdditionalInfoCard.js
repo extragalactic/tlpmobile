@@ -82,7 +82,7 @@ class _AdditionalInfoCard extends React.Component {
                 borderWidth: 1,
                 borderRadius: 20,
                 alignSelf: 'center',
-                width: 580,
+                width: this.props.ui.width / 2.4,
                 height: 80,
                 padding: 10,
                 bottom: 10,
@@ -126,12 +126,16 @@ const mapActionSavePriceDetails = dispatch => ({
   },
 });
 
+const mapUiStateToProps = state => ({
+  ui: state.ui,
+});
 const AdditionalInfoCard = compose(
   connect(mapPriceAmountStateToProps, mapActionSavePriceAmount),
   connect(null, mapActionSavePriceDetails),
   connect(null, mapActionSaveCustomText),
   connect(mapPriceDecriptionStateToProps),
   connect(mapPricePickerStateToProps),
+  connect(mapUiStateToProps),
 )(_AdditionalInfoCard);
 
 

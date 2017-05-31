@@ -21,6 +21,7 @@ import CustomerCardStaus from '../../components/Cards/customerCardStatus';
 import ContactCustomerMenu from '../CustomerContact/contactCustomerMenu';
 import CustomerFollowupModal from '../../components/Modals/customerFollowupModal';
 import CustomerFormModal from '../../components/Modals/customerFormModal';
+import ContactIpadModal from '../../components/Modals/contactiPadModal';
 import { MasterStyleSheet } from '../../style/MainStyles';
 import { getFinishedSurvey,
    toggleSurveyReady,
@@ -253,7 +254,7 @@ class _CustomerDetails extends Component {
         type="static"
         open={this.state.drawer}
         content={<ContactCustomerMenu customer={this.props.data.customer} />}
-        //tapToClose
+        tapToClose
         openDrawerOffset={0.3} // 20% gap on the right side of drawer
         panCloseMask={0.2}
         closedDrawerOffset={-4}
@@ -277,6 +278,28 @@ class _CustomerDetails extends Component {
                id={this.props.profile}
             />
            : null}
+
+             { this.props.params.type === 'search' ||
+             this.props.params.type === 'estimatesent' || 
+             this.props.params.type === 'myestimates' || 
+             this.props.params.type === 'estimatefollowup' ?
+              <CustomerCardEstimate
+                customer={this.props.data.customer}
+                getEstimate={this.getFinishedSurvey}
+              />
+           : null}
+                   {this.props.params.type === 'newcustomers' ||
+                this.props.params.type === 'followup' ||
+                this.props.params.type === 'onsite' ||
+                this.props.params.type === 'inprogress' ||
+                this.props.params.type === 'surveycomplete'  ||
+                this.props.params.type === 'search' ?
+              <CustomerCardSurvey
+                customer={this.props.data.customer}
+                startSurvey={() => { this.setState({ surveyModal: true }); }}
+                surveyComplete={this.getFinishedSurvey}
+              /> : null
+          }
             {this.props.data.customer.address ?
               <CustomerCardMaps
                 customer={this.props.data.customer}
@@ -290,27 +313,7 @@ class _CustomerDetails extends Component {
               getNotes={() => { this.setState({ notesModal: true }); }}
               id={this.props.profile}
             />
-            {this.props.params.type === 'newcustomers' ||
-                this.props.params.type === 'followup' ||
-                this.props.params.type === 'onsite' ||
-                this.props.params.type === 'inprogress' ||
-                this.props.params.type === 'surveycomplete'  ||
-                this.props.params.type === 'search' ?
-              <CustomerCardSurvey
-                customer={this.props.data.customer}
-                startSurvey={() => { this.setState({ surveyModal: true }); }}
-                surveyComplete={this.getFinishedSurvey}
-              /> : null
-          }
-            { this.props.params.type === 'search' ||
-             this.props.params.type === 'estimatesent' || 
-             this.props.params.type === 'myestimates' || 
-             this.props.params.type === 'estimatefollowup' ?
-              <CustomerCardEstimate
-                customer={this.props.data.customer}
-                getEstimate={this.getFinishedSurvey}
-              />
-           : null}
+             
             { this.props.params.type === 'queue' ?
               <CustomerCardQueue
                 customer={this.props.data.customer}
@@ -336,6 +339,10 @@ class _CustomerDetails extends Component {
             customer={this.props.data.customer}
             closeFormModal={() => { this.setState({ formModal: false }); }}
             updateCustomer={this.props.updateCustomer}
+          />
+          <ContactIpadModal 
+             customer={this.props.data.customer}
+
           />
         </View>
       </Drawer>

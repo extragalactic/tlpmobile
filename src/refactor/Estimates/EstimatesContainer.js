@@ -5,6 +5,7 @@ import { Text, Card } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
+import DeviceInfo from 'react-native-device-info';
 
 import { generatePDF } from '../../graphql/mutations';
 import { getFinishedSurvey } from '../../graphql/queries';
@@ -151,29 +152,28 @@ class _EstimatesContainer extends React.Component {
             size={53}
             style={MasterStyleSheet.EstimateModalColLeft}
           >
-            <Row
-              size={75}
-            >
               <Swiper
                 showsButtons
-                style={MasterStyleSheet.EstimateMainSwipe}
                 width={window.width / 2}
               >
                 { this.props.data.getFinishedSurveyQuery.map((survey, idx) => (
                   <View
+              
                     key={idx}
                   >
                     <Card
                       title={survey.heading}
                       containerStyle={{
+                        marginTop: 70,
                         borderRadius: 15,
-                        height: window.height / 1.15,
-                        width: window.width / 2.060,
+                        height: window.height - 86,
+                        right: 10,
+                        width: window.width / 2.099,
                       }}
                     >
                       <Swiper
                         width={window.width / 2}
-                        height={window.height / 2}
+                        height={window.height / 2.2}
                       >
                         {survey.photos.map((photo, idx) => (
                           <View
@@ -184,7 +184,12 @@ class _EstimatesContainer extends React.Component {
                               onPress={() => this.selectImage(photo.url)}
                             >
                               <Image
-                                style={MasterStyleSheet.surveyResultPhotos}
+                                style={
+                                  {
+                                  width: window.width / 2.5,
+                                  height: DeviceInfo.isTablet() ? window.height / 2 : window.height / 3.5,
+                                  }
+                                }
                                 source={{ uri: photo.url }}
                               />
                             </TouchableHighlight>
@@ -197,11 +202,10 @@ class _EstimatesContainer extends React.Component {
                           width: window.width / 2.2,
                           height: window.height / 3.7,
                           borderRadius: 15,
+                          right: 20,
                         }}
                       >
-                        <ScrollView
-                          contentContainerStyle={MasterStyleSheet.surveyResultsNotesView}
-                        >
+                        <ScrollView >
                           { survey.notes.map((note, idx) => (
                             <View key={idx}>
                               <Text h3> {note.description}</Text>
@@ -215,11 +219,8 @@ class _EstimatesContainer extends React.Component {
                   </View>
         ))}
               </Swiper>
-            </Row>
+     
 
-            <Row
-              size={16}
-            />
           </Col>
           <Col
             size={55}

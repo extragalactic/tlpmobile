@@ -93,9 +93,11 @@ class _PhotoCard extends React.Component {
                         <Text h5>{this.props.priceDetails.description0}</Text>
                       </Col>
                       <Col size={18}>
-                        <Text h4 > ${this.props.priceDetails.amount0}</Text>
+                        <Text style={{
+                          fontSize: 16
+                        }} > ${this.props.priceDetails.amount0}</Text>
                       </Col>
-                      <Col size={10}>
+                      <Col size={15}>
                         <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('0')} />
                       </Col>
 
@@ -119,7 +121,11 @@ class _PhotoCard extends React.Component {
                         <Text h5>{this.props.priceDetails.description1}</Text>
                       </Col>
                       <Col size={18}>
-                        <Text h4 > ${this.props.priceDetails.amount1}</Text>
+                        <Text 
+                           style={{
+                          fontSize: 16
+                        }}
+                        > ${this.props.priceDetails.amount1}</Text>
                       </Col>
                       <Col size={10}>
                         <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('1')} />
@@ -151,7 +157,11 @@ class _PhotoCard extends React.Component {
                         <Text h5>{this.props.priceDetails.description2}</Text>
                       </Col>
                       <Col size={19}>
-                        <Text h4 > ${this.props.priceDetails.amount2}</Text>
+                        <Text 
+                           style={{
+                          fontSize: 16
+                        }}
+                        > ${this.props.priceDetails.amount2}</Text>
                       </Col>
                       <Col size={10}>
                         <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('2')} />
@@ -181,7 +191,11 @@ class _PhotoCard extends React.Component {
                         <Text h5>{this.props.priceDetails.description3}</Text>
                       </Col>
                       <Col size={19}>
-                        <Text h4 > ${this.props.priceDetails.amount3}</Text>
+                        <Text 
+                           style={{
+                          fontSize: 16
+                        }}
+                        > ${this.props.priceDetails.amount3}</Text>
                       </Col>
                       <Col size={10}>
                         <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('3')} />
@@ -215,7 +229,11 @@ class _PhotoCard extends React.Component {
                         <Text h5>{this.props.priceDetails.description4}</Text>
                       </Col>
                       <Col size={19}>
-                        <Text h4 > ${this.props.priceDetails.amount4}</Text>
+                        <Text 
+                           style={{
+                          fontSize: 16
+                        }}
+                        > ${this.props.priceDetails.amount4}</Text>
                       </Col>
                       <Col size={10}>
                         <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('4')} />
@@ -250,7 +268,11 @@ class _PhotoCard extends React.Component {
                         <Text h5>{this.props.priceDetails.description5}</Text>
                       </Col>
                       <Col size={19}>
-                        <Text h4 > ${this.props.priceDetails.amount5}</Text>
+                        <Text 
+                           style={{
+                          fontSize: 16
+                        }}
+                        > ${this.props.priceDetails.amount5}</Text>
                       </Col>
                       <Col size={10}>
                         <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('5')} />
@@ -277,7 +299,11 @@ class _PhotoCard extends React.Component {
                       <Text h5>{this.props.price.description}</Text>
                     </Col>
                     <Col size={18}>
-                      <Text h4 > ${this.props.price.amount}</Text>
+                      <Text 
+                         style={{
+                          fontSize: 16
+                        }}
+                      > ${this.props.price.amount}</Text>
                     </Col>
                     <Col size={10}>
                       <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option0')} />
@@ -308,7 +334,11 @@ class _PhotoCard extends React.Component {
                       <Text h5>{this.props.price.option1.description}</Text>
                     </Col>
                     <Col size={18}>
-                      <Text h4 > ${this.props.price.option1.amount}</Text>
+                      <Text 
+                         style={{
+                          fontSize: 16
+                        }}
+                      > ${this.props.price.option1.amount}</Text>
                     </Col>
                     <Col size={10}>
                       <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option1')} />
@@ -339,7 +369,11 @@ class _PhotoCard extends React.Component {
                       <Text h5>{this.props.price.option2.description}</Text>
                     </Col>
                     <Col size={18}>
-                      <Text h4 > ${this.props.price.option2.amount}</Text>
+                      <Text 
+                         style={{
+                          fontSize: 16
+                        }}
+                      > ${this.props.price.option2.amount}</Text>
                     </Col>
                     <Col size={10}>
                       <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option2')} />
@@ -369,7 +403,11 @@ class _PhotoCard extends React.Component {
                       <Text h5>{this.props.price.option3.description}</Text>
                     </Col>
                     <Col size={18}>
-                      <Text h4 > ${this.props.price.option3.amount}</Text>
+                      <Text 
+                         style={{
+                          fontSize: 16
+                        }}
+                      > ${this.props.price.option3.amount}</Text>
                     </Col>
                     <Col size={10}>
                       <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option3')} />
@@ -399,7 +437,11 @@ class _PhotoCard extends React.Component {
                       <Text h5>{this.props.price.option4.description}</Text>
                     </Col>
                     <Col size={18}>
-                      <Text h4 > ${this.props.price.option4.amount}</Text>
+                      <Text 
+                         style={{
+                          fontSize: 16
+                        }}
+                      > ${this.props.price.option4.amount}</Text>
                     </Col>
                     <Col size={10}>
                       <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option4')} />
@@ -429,7 +471,11 @@ class _PhotoCard extends React.Component {
                       <Text h5>{this.props.price.option5.description}</Text>
                     </Col>
                     <Col size={18}>
-                      <Text h4 > ${this.props.price.option5.amount}</Text>
+                      <Text 
+                         style={{
+                          fontSize: 16
+                        }}
+                      > ${this.props.price.option5.amount}</Text>
                     </Col>
                     <Col size={10}>
                       <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option5')} />
