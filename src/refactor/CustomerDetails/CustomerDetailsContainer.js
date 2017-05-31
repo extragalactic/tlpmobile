@@ -278,6 +278,16 @@ class _CustomerDetails extends Component {
                id={this.props.profile}
             />
            : null}
+
+             { this.props.params.type === 'search' ||
+             this.props.params.type === 'estimatesent' || 
+             this.props.params.type === 'myestimates' || 
+             this.props.params.type === 'estimatefollowup' ?
+              <CustomerCardEstimate
+                customer={this.props.data.customer}
+                getEstimate={this.getFinishedSurvey}
+              />
+           : null}
             {this.props.data.customer.address ?
               <CustomerCardMaps
                 customer={this.props.data.customer}
@@ -303,15 +313,7 @@ class _CustomerDetails extends Component {
                 surveyComplete={this.getFinishedSurvey}
               /> : null
           }
-            { this.props.params.type === 'search' ||
-             this.props.params.type === 'estimatesent' || 
-             this.props.params.type === 'myestimates' || 
-             this.props.params.type === 'estimatefollowup' ?
-              <CustomerCardEstimate
-                customer={this.props.data.customer}
-                getEstimate={this.getFinishedSurvey}
-              />
-           : null}
+          
             { this.props.params.type === 'queue' ?
               <CustomerCardQueue
                 customer={this.props.data.customer}
