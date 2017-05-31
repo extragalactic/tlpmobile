@@ -57,6 +57,7 @@ class _InfoCard extends React.Component {
                   }}
                 >
                   { this.props.second ? <View>
+                    <Text h3 >Generics</Text>
                     <ScrollView>
         {
       Object.keys(this.props.generics).map((item, index, value) => {
@@ -264,6 +265,7 @@ class _InfoCard extends React.Component {
               }}
             >
               <Icon
+               size={32}
                 name={'expand-more'}
                 onPress={this.props.onPress}
               />

@@ -89,6 +89,8 @@ class _Row extends Component {
           //  backgroundColor: '#FFBD18',
             flex: 1,
             flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
            // margin: 14,
             borderRadius: 2,
           }}
@@ -97,7 +99,7 @@ class _Row extends Component {
           <Button
             title={'Save'}
             buttonStyle={{
-              width: 275,
+              width: this.props.ui.width / 5.5,
               height: 86,
               backgroundColor: 'green',
               borderRadius: 10,
@@ -107,7 +109,7 @@ class _Row extends Component {
           <Button
             title={'Close'}
             buttonStyle={{
-              width: 275,
+              width: this.props.ui.width / 5,
               height: 86,
               backgroundColor: 'red',
               borderRadius: 10,

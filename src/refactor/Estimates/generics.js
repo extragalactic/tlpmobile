@@ -191,16 +191,15 @@ pressure off the wall (OBC says No, NBC says Yes)</Text>
         <Text>{'\n'}{'\u2022'} Dismantle chimney to roofline/foundation/top only and rebuild with new brick to
 match as close as possible (no corbeling)</Text>
         <Text>{'\u2022'} Replace top glue liner(s)</Text>
-
-        <Text h3>New Cap{'\n'} </Text>
-               <Text>{'\u2022'} Cover walls with parge if block (if concrete, no parge is required)</Text>
+        <Text h3>New Cap </Text>
+        <Text>{'\u2022'} Cover walls with parge if block (if concrete, no parge is required)</Text>
         <Text>{'\u2022'} Backfill and compress native soils into place or backfill with HPB aggregates</Text>
-        <Text h3>New Crown{'\n'} </Text>
+        <Text h3>New Crown</Text>
                <Text>{'\u2022'} Install portland or type 10 mix 3-1 pre-hydrated or hydraulic mortar</Text>
         <Text>{'\u2022'}Top of crown to be sloped and feathered from 2" down to outer edge of limestone
 cap{'\n'} </Text>
                <Text>{'\u2022'}Apply fire rated caulking(orange or grey colour) around all flue liners (including gas))</Text>
-                       <Text h3>Check Roof Flashing{'\n'} </Text>
+                       <Text h3>Check Roof Flashing </Text>
 
         <Text>{'\u2022'} Re-attach flashing and caulk and ensure not even a pinhole exists.</Text>
         <Text>{'\u2022'} Clean roof, dismantle scaffolding, clean up little pigs mess and haul away</Text>
