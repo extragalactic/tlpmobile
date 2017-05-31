@@ -288,6 +288,18 @@ class _CustomerDetails extends Component {
                 getEstimate={this.getFinishedSurvey}
               />
            : null}
+                   {this.props.params.type === 'newcustomers' ||
+                this.props.params.type === 'followup' ||
+                this.props.params.type === 'onsite' ||
+                this.props.params.type === 'inprogress' ||
+                this.props.params.type === 'surveycomplete'  ||
+                this.props.params.type === 'search' ?
+              <CustomerCardSurvey
+                customer={this.props.data.customer}
+                startSurvey={() => { this.setState({ surveyModal: true }); }}
+                surveyComplete={this.getFinishedSurvey}
+              /> : null
+          }
             {this.props.data.customer.address ?
               <CustomerCardMaps
                 customer={this.props.data.customer}
@@ -301,19 +313,7 @@ class _CustomerDetails extends Component {
               getNotes={() => { this.setState({ notesModal: true }); }}
               id={this.props.profile}
             />
-            {this.props.params.type === 'newcustomers' ||
-                this.props.params.type === 'followup' ||
-                this.props.params.type === 'onsite' ||
-                this.props.params.type === 'inprogress' ||
-                this.props.params.type === 'surveycomplete'  ||
-                this.props.params.type === 'search' ?
-              <CustomerCardSurvey
-                customer={this.props.data.customer}
-                startSurvey={() => { this.setState({ surveyModal: true }); }}
-                surveyComplete={this.getFinishedSurvey}
-              /> : null
-          }
-          
+             
             { this.props.params.type === 'queue' ?
               <CustomerCardQueue
                 customer={this.props.data.customer}
