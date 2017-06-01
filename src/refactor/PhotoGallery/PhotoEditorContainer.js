@@ -67,7 +67,7 @@ class PhotoEditorContainer extends React.Component {
         <WebView
           style={styles.webview}
           contentInset={{ top: 10, left: 0, bottom: 0, right: 0 }}
-          scalesPageToFit
+          scalesPageToFit={false}
           onLoad={this.onLoadComplete}
           source={{ uri: `${BASE_URL}/photoedit/${custID}/${docID}` }}
           onMessage={this.receiveMessage}
