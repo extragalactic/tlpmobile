@@ -44,10 +44,7 @@ class _ProfileDetailCard extends React.Component {
         custid: this.props.customer.id,
       },
     })
-      .then((res) => {
-        console.log('ress', res);
-      });
-  }
+}
   render() {
     if (this.props.data.loading) {
       return (
@@ -59,24 +56,31 @@ class _ProfileDetailCard extends React.Component {
         {!this.props.second ?
           <View >
             {this.props.top ?
-              <View>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                }}
+              >
                 <PickerIOS
                   style={{
                     marginTop: 27,
                     bottom: 30,
-                    width: this.props.ui.width / 2.34,
+                    width: this.props.ui.width / 2.3,
                     height: this.props.ui.height / 5.5,
-                    backgroundColor: '#dcdcdc',
+                    //backgroundColor: '#dcdcdc',
                   }}
-                  selectedValue={this.props.pricePicker}
-                  onValueChange={(value) => {
-                    this.props.savePricePicker(value);
+                  selectedValue={this.props.pricePicker.description}
+                  onValueChange={(description, item) => {
+                    this.props.savePricePicker({ description, id: this.props.data.getPrices[item]._id });
                     this.props.savePriceDescription('');
                   }}
                 >
-                  {this.props.data.getPrices.map((price, idx) => (
+                
+                  {this.props.data.getPrices.map((price) => (
                     <PickerItemIOS
-                      key={idx}
+                      key={price._id}
                       value={price.description}
                       label={price.description}
                     />
@@ -86,20 +90,24 @@ class _ProfileDetailCard extends React.Component {
 
             : <View
               style={{
-                marginTop: 27,
+                marginTop: 84,
                 bottom: this.props.ui.height / 4.6,
-                width: this.props.ui.width / 2.34,
-                height: this.props.ui.height / 2.8,
+                width: this.props.ui.width / 2.24,
+                height: this.props.ui.height / 3.1,
                 backgroundColor: '#dcdcdc',
+                alignItems: 'center',
+                justifyContent: 'center',
+               borderWidth: 3,
+
               }}
             >
               <TextInput
                 autoCorrect
-                onChangeText={description => this.props.editPriceAction({ description })}
+                onChangeText={description => this.props.editPriceAction({ description, option: this.props.editPrice.option})}
                 defaultValue={this.props.editPrice.description}
                 multiline
                 style={{
-                  borderWidth: 3,
+                 // borderWidth: 3,
                   paddingHorizontal: 20,
                   paddingTop: 20,
                   fontSize: 24,
@@ -112,11 +120,15 @@ class _ProfileDetailCard extends React.Component {
           </View> :
           <View
             style={{
-              marginTop: 27,
+              marginTop: 85,
               bottom: this.props.ui.height / 4.6,
-              width: this.props.ui.width / 2.34,
-              height: this.props.ui.height / 2.8,
+              width: this.props.ui.width / 2.24,
+              height: this.props.ui.height / 3.7,
               backgroundColor: '#dcdcdc',
+              borderRadius:6,
+              borderWidth: 5,
+              borderColor: 'grey'
+
             }}
           >
             <ScrollView
@@ -185,7 +197,9 @@ const mapUiStateToProps = state => ({
 
 const ProfileDetailCard = compose(
     graphql(editPriceDescription, { name: 'editPriceDescription' }),
-    graphql(getPrices),
+    graphql(getPrices, {
+      options: { pollInterval: 5000 },
+    }),
     connect(mapGenericStateToProps, mapActionToggleGeneric),
     connect(mapPricePickerStateToProps, mapActionSavePricePicker),
     connect(mapPriceDecriptionStateToProps, mapActionSavePriceDecription),

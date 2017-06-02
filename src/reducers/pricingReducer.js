@@ -26,7 +26,10 @@ export const priceAmountReducer = (state = '', action) => {
 export const SAVE_PRICE_PICKER = 'SAVE_PRICE_PICKER';
 export const SAVE_PRICE_PICKER_COMPLETE = 'SAVE_PRICE_PICKER_COMPLETE';
 
-export const pricePickerReducer = (state = '', action) => {
+export const pricePickerReducer = (state = {
+  description: '',
+  id: '',
+}, action) => {
   switch (action.type) {
     case SAVE_PRICE_PICKER:
       return action.payload;

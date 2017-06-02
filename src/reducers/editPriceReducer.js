@@ -3,6 +3,7 @@ export const EDIT_PRICE = 'EDIT_PRICE';
 export const editPriceReducer = (state = {
   description: '',
   amount: '',
+  option: '0',
 }, action) => {
   switch (action.type) {
     case EDIT_PRICE:

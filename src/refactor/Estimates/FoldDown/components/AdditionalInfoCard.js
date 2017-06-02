@@ -1,28 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text } from 'react-native-elements';
+import { Text,   Button } from 'react-native-elements';
 import { graphql, compose } from 'react-apollo';
 import {
   View,
   StyleSheet,
   TextInput,
-  Button,
   Switch,
+  AlertIOS,
 } from 'react-native';
+import { addNewPrice, addPricetoHistory, deleteEstimateFromHistory } from '../../../../graphql/mutations';
 
 class _AdditionalInfoCard extends React.Component {
   constructor() {
     super();
     this.state = { customText: '' };
   }
-
+ 
   getDescription = () => {
     if (this.props.priceDescription) {
       return this.props.priceDescription;
     }
-    return this.props.pricePicker;
+    return this.props.pricePicker.description;
   }
-
+  deleteHistory = () => {
+      AlertIOS.alert(
+      'Delete History Item',
+       `Are you sure you want to delete the following item:  \n  ${this.props.pricePicker.description}`,
+      [{ text: 'YES', onPress: () => {
+       this.props.deleteEstimateFromHistory({
+      variables: {
+        id: this.props.pricePicker.id
+      }
+    }).then(() => {
+      AlertIOS.alert('Deleted!');
+    });
+      } },
+        { text: 'NO',
+          onPress: () => console.log('no'),
+        },
+      ],
+      );
+   
+  } 
   handleKeyDownAmount = (e) => {
     if (e.nativeEvent.key === 'Enter') {
       this.props.savePriceDetails({ amount: this.props.priceAmount, description: this.getDescription() });
@@ -41,7 +61,7 @@ class _AdditionalInfoCard extends React.Component {
         style={{
           flex: 1,
           paddingTop: 10,
-          paddingHorizontal: 16,
+        //  paddingHorizontal: 16,
           flexDirection: 'row',
 
           backgroundColor: '#FFFFFF',
@@ -53,7 +73,11 @@ class _AdditionalInfoCard extends React.Component {
           <View
             style={{
               flex: 1,
-              alignItems: 'center'
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 6,
+              borderWidth: 5,
+              borderColor: 'grey',
             }}
           >
             <TextInput
@@ -65,18 +89,21 @@ class _AdditionalInfoCard extends React.Component {
               onChangeText={customText => this.setState({ customText })}
               onKeyPress={e => this.handleKeyDownCustom(e)}
               style={{
-                borderWidth: 1,
-                borderRadius: 20,
-                width: 580,
+         
+                width: this.props.ui.width / 2.4,
                 height: 120,
-                padding: 10,
-                bottom: 10,
-                fontSize: 12,
+               // bottom: 10,
+                fontSize: 18,
+                alignSelf: 'center',
               }}
             />
           </View>
         :
-          <View>
+          <View
+            style={{
+              flex: 1
+            }}
+          >
          {this.props.top ? <View
              style={{
               flex: 1,
@@ -90,33 +117,27 @@ class _AdditionalInfoCard extends React.Component {
                flex: 1,
                marginBottom: 2,
                flexDirection: 'row',
-               justifyContent: 'center'
-             }}
-           >
-           <Button
-           
-             title={'Delete History Item'}
-           />
-           <View
-            style={{
-               flex: 1,
-               marginBottom: 8,
-               flexDirection: 'row',
                justifyContent: 'center',
                alignItems: 'center',
              }}
            >
-           <Text
-           h5
-            style={{
+           <Button
            
-             // alignSelf: 'center',       
-             //  justifyContent: 'center'
+             icon={{name: 'delete'}}
+       borderRadius={12}
+           onPress={() => this.deleteHistory() }
+             buttonStyle={{
+               backgroundColor: '#8b0000',
+               bottom: 5,
+               marginVertical: 10,
+               alignSelf: 'center',
+               justifyContent: 'center',
+               alignItems: 'center',
+               width: this.props.ui.width / 2.4,
+
              }}
-           
-           > Save to History </Text>
-           <Switch />
-           </View>
+             title={'Delete History Item'}
+           />
            </View>
            <TextInput
               keyboardType={'numeric'}
@@ -127,8 +148,8 @@ class _AdditionalInfoCard extends React.Component {
               value={this.props.priceAmount}
               onChangeText={text => this.props.savePriceAmount(text)}
               style={{
-                borderWidth: 1,
-                borderRadius: 20,
+              //  borderWidth: 1,
+                //borderRadius: 20,
                 alignSelf: 'center',
                 width: this.props.ui.width / 2.4,
                 height: 80,
@@ -139,22 +160,31 @@ class _AdditionalInfoCard extends React.Component {
                 justifyContent: 'center',
               }}
             />
-           </View> : <View> 
+           </View> : <View
+             style={{
+               flex: 1,
+               alignItems: 'center',
+               justifyContent: 'center',
+               borderTopWidth: 5,
+                bottom: 10
+
+             }}
+           > 
            <TextInput
               keyboardType={'numeric'}
               autoFocus
               enablesReturnKeyAutomatically
               onKeyPress={e => this.handleKeyDownAmount(e)}
-              placeholder={'DollarAmount!'}
+              placeholder={'Dollar Amount'}
               defaultValue={this.props.editPrice.amount}
               onChangeText={amount => this.props.editPriceAction({ amount })}
               style={{
-                borderWidth: 1,
-                borderRadius: 20,
+                //borderWidth: 1,
+                //borderRadius: 20,
                 alignSelf: 'center',
                 width: this.props.ui.width / 2.4,
-                height: 80,
-                padding: 10,
+                height: 90,
+                padding: 3,
                 bottom: 10,
                 fontSize: 40,
                 alignItems: 'center',
@@ -215,6 +245,7 @@ const mapActionEditPrice = dispatch => ({
 });
 
 const AdditionalInfoCard = compose(
+  graphql(deleteEstimateFromHistory, { name: 'deleteEstimateFromHistory' }),
   connect(mapEditPriceState, mapActionEditPrice),
   connect(mapPriceAmountStateToProps, mapActionSavePriceAmount),
   connect(mapPriceDetailsStateToProps, mapActionSavePriceDetails),

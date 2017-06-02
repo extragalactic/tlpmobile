@@ -22,8 +22,6 @@ export const uiReducer = (state = {
         estimateSpinner: !state.estimateSpinner,
       });
     case TOGGLE_CONTACT_MODAL:
-      console.log('redicer');
-
       return Object.assign({}, state, {
         iPadContactModal: !state.iPadContactModal,
       });

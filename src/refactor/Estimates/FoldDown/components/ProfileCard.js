@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import FoldView from 'react-native-foldview';
-import { addNewPrice } from '../../../../graphql/mutations';
+import { addNewPrice, addPricetoHistory, editPriceDescription, editPriceAmount } from '../../../../graphql/mutations';
 import ProfileDetailCard from './ProfileDetailCard';
 import AdditionalInfoCard from './AdditionalInfoCard';
 
@@ -31,9 +31,7 @@ class _Row extends Component {
 
   submitPrice = () => {
     if (this.props.priceDetails.amount0 == "" )  {
-    
       AlertIOS.alert("No Price Selected!");
-
      } else {
     const payload = Object.assign({}, this.props.priceDetails, {
       custid: this.props.currentCustomer,
@@ -56,6 +54,42 @@ class _Row extends Component {
     });
      }
  }
+  updatePrice = () => {
+    AlertIOS.alert(
+      'Save update to history?',
+       'Do you want add update to description history?',
+      [{ text: 'YES', onPress: () => {
+          this.props.addtoHistory({
+            variables: {
+              description: this.props.editPrice.description,
+            }
+          }).then((res) => {
+            this.props.editPriceDescription({
+              variables: {
+                custid: this.props.customer.id,
+                text: this.props.editPrice.description,
+                amount: this.props.editPrice.amount,
+                option: `option${this.props.editPrice.option}`,
+                index: this.props.index
+              }
+            })
+         })
+
+      } },
+        { text: 'NO',
+          onPress: () => this.props.editPriceDescription({
+              variables: {
+                custid: this.props.customer.id,
+                text: this.props.editPrice.description,
+                amount: this.props.editPrice.amount,
+                option: `option${this.props.editPrice.option}`,
+                index: this.props.index
+              }
+            }),
+        },
+      ],
+      );
+  }
 
   renderBlankFace() {
     return (
@@ -183,7 +217,7 @@ class _Row extends Component {
                 backgroundColor: 'blue',
                 borderRadius: 10,
               }}
-              //onPress={this.submitPrice}
+              onPress={this.updatePrice}
             />
             <Button
               title={'Close'}
@@ -212,7 +246,7 @@ class _Row extends Component {
           flex: 1,
           backgroundColor: '#fff',
           flexDirection: 'column',
-          borderWidth: 2,
+        //  borderWidth: 2,
 
         }}
       >
@@ -221,7 +255,7 @@ class _Row extends Component {
             style={{
               flex: 1,
               paddingBottom: 10,
-              padding: 3,
+              padding: 2,
               borderWidth: 2,
               borderColor: 'grey',
             }}
@@ -236,18 +270,23 @@ class _Row extends Component {
                     }}
                   >
                     <TextInput
+                      autoCapitalize={'sentences'}
                       autoCorrect
                       placeholder={'Work Description'}
+                      clearButtonMode={'always'}
+                      dataDetectorTypes={'all'}
+                      autoFocus
                       style={{
                         marginTop: 10,
                         alignSelf: 'center',
                         width: this.props.ui.width / 2.4,
-                        height: this.props.ui.height / 6,
-                        padding: 3,
+                        height: this.props.ui.height / 8.2,
+                        padding: 2,
                         bottom: 10,
+                        fontSize: 18,
                       }}
                       multiline
-                      defaultValue={this.props.pricePicker}
+                      defaultValue={this.props.pricePicker.description}
                       onChangeText={text => this.props.savePriceDescription(text)}
                     />
                   </View> :
@@ -325,6 +364,9 @@ const Row = compose(
   connect(mapPriceDetailsStateToProps, mapActionSavePriceDetails),
   connect(mapEditPriceState, mapActionEditPrice),
   graphql(addNewPrice, { name: 'addNewPrice' }),
+  graphql(addPricetoHistory, { name: 'addtoHistory' }),
+  graphql(editPriceDescription, { name: 'editPriceDescription' }),
+  graphql(editPriceAmount, { name: 'editPriceAmount' }),
   connect(mapUiStateToProps),
 )(_Row);
 

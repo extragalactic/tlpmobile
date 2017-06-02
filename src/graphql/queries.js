@@ -500,6 +500,7 @@ const getPrices = gql`
   getPrices {
     description
     price
+    _id
   }
 }`;
 

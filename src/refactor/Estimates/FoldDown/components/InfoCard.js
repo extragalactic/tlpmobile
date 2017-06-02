@@ -262,14 +262,21 @@ class _InfoCard extends React.Component {
         </ScrollView>
       </View>}
           </Row>
+          
           <Row size={10} >
+          
             <View
               style={{
                 flex: 1,
                 alignItems: 'center',
               }}
             >
+          
               <Icon
+                style={{
+
+                 // bottom: this.props.top && !this.props.second ? 16 : 5,
+                }}
                 size={32}
                 name={'expand-more'}
                 onPress={this.props.onPress}

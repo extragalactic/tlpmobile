@@ -313,7 +313,7 @@ class _PhotoCard extends React.Component {
                   <Col size={80}>
 
                     <TouchableHighlight
-                      onPress={() => this.props.editPrice({ description: this.props.price.description, amount: this.props.price.amount })}
+                      onPress={() => this.props.editPrice({ description: this.props.price.description, amount: this.props.price.amount, option: '0' })}
                     >
                       <View>
                         <Text h5>{this.props.price.description}</Text>
@@ -355,7 +355,13 @@ class _PhotoCard extends React.Component {
                   }}
                 >
                   <Col size={80}>
-                    <Text h5>{this.props.price.option1.description}</Text>
+                    <TouchableHighlight
+                      onPress={() => this.props.editPrice({ description: this.props.price.option1.description, amount: this.props.price.option1.amount, option: '1' })}
+                    >
+                      <View>
+                        <Text h5>{this.props.price.option1.description}</Text>
+                      </View>
+                    </TouchableHighlight>                  
                   </Col>
                   <Col size={18}>
                     <Text
@@ -390,8 +396,13 @@ class _PhotoCard extends React.Component {
                   }}
                 >
                   <Col size={80}>
-                    <Text h5>{this.props.price.option2.description}</Text>
-                  </Col>
+                  <TouchableHighlight
+                      onPress={() => this.props.editPrice({ description: this.props.price.option2.description, amount: this.props.price.option2.amount, option: '2' })}
+                    >
+                      <View>
+                        <Text h5>{this.props.price.option2.description}</Text>
+                      </View>
+                    </TouchableHighlight>                   </Col>
                   <Col size={18}>
                     <Text
                       style={{
@@ -424,7 +435,13 @@ class _PhotoCard extends React.Component {
                   }}
                 >
                   <Col size={80}>
-                    <Text h5>{this.props.price.option3.description}</Text>
+     <TouchableHighlight
+                      onPress={() => this.props.editPrice({ description: this.props.price.option3.description, amount: this.props.price.option3.amount, option: '3' })}
+                    >
+                      <View>
+                        <Text h5>{this.props.price.option3.description}</Text>
+                      </View>
+                    </TouchableHighlight>                   
                   </Col>
                   <Col size={18}>
                     <Text
@@ -458,8 +475,14 @@ class _PhotoCard extends React.Component {
                   }}
                 >
                   <Col size={80}>
-                    <Text h5>{this.props.price.option4.description}</Text>
-                  </Col>
+                  <TouchableHighlight
+                      onPress={() => this.props.editPrice({ description: this.props.price.option4.description, amount: this.props.price.option4.amount, option: '4' })}
+                    >
+                      <View>
+                        <Text h5>{this.props.price.option4.description}</Text>
+                      </View>
+                    </TouchableHighlight>                   
+                 </Col>
                   <Col size={18}>
                     <Text
                       style={{
@@ -492,8 +515,14 @@ class _PhotoCard extends React.Component {
                   }}
                 >
                   <Col size={80}>
-                    <Text h5>{this.props.price.option5.description}</Text>
-                  </Col>
+     <TouchableHighlight
+                      onPress={() => this.props.editPrice({ description: this.props.price.option5.description, amount: this.props.price.option5.amount, option: '5' })}
+                    >
+                      <View>
+                        <Text h5>{this.props.price.option5.description}</Text>
+                      </View>
+                    </TouchableHighlight>                  
+                 </Col>
                   <Col size={18}>
                     <Text
                       style={{
