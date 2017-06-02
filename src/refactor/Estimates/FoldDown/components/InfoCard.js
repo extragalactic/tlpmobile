@@ -12,6 +12,7 @@ import {
   View,
   StyleSheet,
   ScrollView,
+  TouchableHighlight,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     flexDirection: 'row',
+    marginBottom: 3,
   },
   leftPane: {
     flex: 3,
@@ -59,19 +61,19 @@ class _InfoCard extends React.Component {
                   { this.props.second ? <View>
                     <Text h3 >Generics</Text>
                     <ScrollView>
-        {
+                      {
       Object.keys(this.props.generics).map((item, index, value) => {
         if (this.props.generics[value[index]]) {
           return generics.map((generic) => {
             if (generic.prop === value[index]) {
-             return generic.text();
+              return generic.text();
             }
           });
         }
       })
-    }        
+    }
 
-    </ScrollView>            
+                    </ScrollView>
                   </View> :
                   <View
                     style={{
@@ -81,44 +83,44 @@ class _InfoCard extends React.Component {
                       justifyContent: 'center',
                     }}
                   >
-                {this.props.ui.estimateSpinner ? <Spinner color={'#517fa4'} /> :
-                <View
-                   style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                >
-               <Icon
-                  name="photo-library"
-                  color="#517fa4"
-                  raised
-                  reverse
-                  size={32}
-                  onPress={() => Actions.photoGalleryContainer()}
-                />
-                <Icon
-                  name="picture-as-pdf"
-                  color="#517fa4"
-                  raised
-                  reverse
-                  size={32}
-                  onPress={() => this.props.createPDFPreview()}
-                />
-                  <Icon
-                    name="send"
-                    color="#517fa4"
-                    raised
-                    reverse
-                    size={32}
-                    onPress={() => this.props.sendEstimate()}
-                  />
-                </View>
+                    {this.props.ui.estimateSpinner ? <Spinner color={'#517fa4'} /> :
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <Icon
+                        name="photo-library"
+                        color="#517fa4"
+                        raised
+                        reverse
+                        size={32}
+                        onPress={() => Actions.photoGalleryContainer()}
+                      />
+                      <Icon
+                        name="picture-as-pdf"
+                        color="#517fa4"
+                        raised
+                        reverse
+                        size={32}
+                        onPress={() => this.props.createPDFPreview()}
+                      />
+                      <Icon
+                        name="send"
+                        color="#517fa4"
+                        raised
+                        reverse
+                        size={32}
+                        onPress={() => this.props.sendEstimate()}
+                      />
+                    </View>
                 }
-           </View>
+                  </View>
         }
-            </View>
+                </View>
       : <View>
         <ScrollView>
           <Text
@@ -129,6 +131,8 @@ class _InfoCard extends React.Component {
               margin: 6,
             }}
           >{this.props.price.description}</Text>
+
+
           {this.props.price.option1.description ?
             <Text
               style={{
@@ -138,8 +142,8 @@ class _InfoCard extends React.Component {
                 margin: 6,
               }}
             > {this.props.price.option1.description}</Text> : null}
-            
-            {this.props.price.option2.description ?
+
+          {this.props.price.option2.description ?
             <Text
               style={{
                 borderWidth: 2,
@@ -150,7 +154,7 @@ class _InfoCard extends React.Component {
             > {this.props.price.option2.description}</Text> : null}
 
 
-            {this.props.price.option3.description ?
+          {this.props.price.option3.description ?
             <Text
               style={{
                 borderWidth: 2,
@@ -160,7 +164,7 @@ class _InfoCard extends React.Component {
               }}
             > {this.props.price.option3.description}</Text> : null}
 
-    {this.props.price.option4.description ?
+          {this.props.price.option4.description ?
             <Text
               style={{
                 borderWidth: 2,
@@ -170,7 +174,7 @@ class _InfoCard extends React.Component {
               }}
             > {this.props.price.option4.description}</Text> : null}
 
-            {this.props.price.option5.description ?
+          {this.props.price.option5.description ?
             <Text
               style={{
                 borderWidth: 2,
@@ -179,21 +183,22 @@ class _InfoCard extends React.Component {
                 margin: 6,
               }}
             > {this.props.price.option5.description}</Text> : null}
-            
+
         </ScrollView>
       </View>}
-        </Col>
-        <Col
-          size={30}
-          style={{
-            flex: 1,
-            width: 500,
-          }}
-        />
-        {this.props.top ?
-          <View />
+            </Col>
+            <Col
+              size={30}
+              style={{
+                flex: 1,
+                width: 500,
+              }}
+            />
+            {this.props.top ?
+              <View />
       : <View>
         <ScrollView>
+
           <Text
             style={{
               fontSize: 32,
@@ -265,7 +270,7 @@ class _InfoCard extends React.Component {
               }}
             >
               <Icon
-               size={32}
+                size={32}
                 name={'expand-more'}
                 onPress={this.props.onPress}
               />

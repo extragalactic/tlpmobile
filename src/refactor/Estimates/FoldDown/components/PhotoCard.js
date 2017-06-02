@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { Icon, Text } from 'react-native-elements';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { graphql, compose } from 'react-apollo';
@@ -7,9 +8,11 @@ import generics from '../../../Estimates/generics';
 
 import {
  View,
+ Image,
  StyleSheet,
  ScrollView,
  AlertIOS,
+ TouchableHighlight,
 } from 'react-native';
 
 import { deletePrice } from '../../../../graphql/mutations';
@@ -19,7 +22,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     justifyContent: 'flex-start',
-    margin: 1,
+    margin: 0,
+    borderWidth: 2,
+    borderColor: 'grey',
     padding: 2,
   },
 });
@@ -53,237 +58,32 @@ class _PhotoCard extends React.Component {
     return (
       <View style={styles.card}>
         <ScrollView>
-          { this.props.top ?
-            <View>
-              { this.props.second ? <View>
-                {
-      Object.keys(this.props.generics).map((item, index, value) => {
-        if (this.props.generics[value[index]]) {
-          return generics.map((generic) => {
-            if (generic.prop === value[index]) {
-              return generic.text();
-            }
-          });
-        }
-      })
-    }
-                {this.props.customText ?
-                  <View>
-                    <Text>{this.props.customText} </Text>
-                  </View>
+          { this.props.top ? <View>
+
+            { this.props.second ? <View>
+              <Text h4 style={{ alignSelf: 'center' }}>Generics Preview</Text>{
+                 Object.keys(this.props.generics).map((item, index, value) => {
+                   if (this.props.generics[value[index]]) {
+                     return generics.map((generic) => {
+                       if (generic.prop === value[index]) {
+                         return generic.text();
+                       }
+                     });
+                   }
+                 })
+                }
+              { this.props.customText ?
+                <View>
+                  <Text>{this.props.customText} </Text>
+                </View>
 
 
        : null}
-              </View> : <View>
-
-
-                { this.props.priceDetails.description0 ?
-
-                  <Grid>
-                    <Row
-                      style={{
-                        borderWidth: 1.5,
-                        borderColor: 'grey',
-                        borderRadius: 6,
-                        flexDirection: 'row',
-                        marginHorizontal: 10,
-                      }}
-                    >
-                      <Col size={80}>
-                        <Text h5>{this.props.priceDetails.description0}</Text>
-                      </Col>
-                      <Col size={18}>
-                        <Text style={{
-                          fontSize: 16
-                        }} > ${this.props.priceDetails.amount0}</Text>
-                      </Col>
-                      <Col size={15}>
-                        <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('0')} />
-                      </Col>
-
-                    </Row>
-                  </Grid>
-       : null}
-
-                { this.props.priceDetails.description1 ?
-
-                  <Grid>
-                    <Row
-                      style={{
-                        borderWidth: 1.5,
-                        borderColor: 'grey',
-                        borderRadius: 6,
-                        flexDirection: 'row',
-                        marginHorizontal: 10,
-                      }}
-                    >
-                      <Col size={80}>
-                        <Text h5>{this.props.priceDetails.description1}</Text>
-                      </Col>
-                      <Col size={18}>
-                        <Text 
-                           style={{
-                          fontSize: 16
-                        }}
-                        > ${this.props.priceDetails.amount1}</Text>
-                      </Col>
-                      <Col size={10}>
-                        <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('1')} />
-                      </Col>
-
-                    </Row>
-                  </Grid>
-       : null}
-                { this.props.priceDetails.description2 ?
-                  <Grid>
-                    <Text
-                      style={{
-                        alignSelf: 'center',
-                      }}
-                      h4
-                    >OR</Text>
-                    <Row
-                      style={{
-                        borderWidth: 1.5,
-                        borderColor: 'grey',
-                        borderRadius: 6,
-                        flexDirection: 'row',
-                        marginHorizontal: 10,
-                      }}
-                    >
-
-
-                      <Col size={80}>
-                        <Text h5>{this.props.priceDetails.description2}</Text>
-                      </Col>
-                      <Col size={19}>
-                        <Text 
-                           style={{
-                          fontSize: 16
-                        }}
-                        > ${this.props.priceDetails.amount2}</Text>
-                      </Col>
-                      <Col size={10}>
-                        <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('2')} />
-                      </Col>
-
-                    </Row>
-                  </Grid>
-       : null}
-                { this.props.priceDetails.description3 ?
-                  <Grid>
-                    <Text
-                      style={{
-                        alignSelf: 'center',
-                      }}
-                      h4
-                    >OR</Text>
-                    <Row
-                      style={{
-                        borderWidth: 1.5,
-                        borderColor: 'grey',
-                        borderRadius: 6,
-                        flexDirection: 'row',
-                        marginHorizontal: 10,
-                      }}
-                    >
-                      <Col size={80}>
-                        <Text h5>{this.props.priceDetails.description3}</Text>
-                      </Col>
-                      <Col size={19}>
-                        <Text 
-                           style={{
-                          fontSize: 16
-                        }}
-                        > ${this.props.priceDetails.amount3}</Text>
-                      </Col>
-                      <Col size={10}>
-                        <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('3')} />
-                      </Col>
-
-                    </Row>
-                  </Grid>
-       : null}
-
-                { this.props.priceDetails.description4 ?
-
-                  <Grid>
-                    <Text
-                      style={{
-                        alignSelf: 'center',
-                      }}
-                      h4
-                    >OR</Text>
-                    <Row
-                      style={{
-                        borderWidth: 1.5,
-                        borderColor: 'grey',
-                        borderRadius: 6,
-                        flexDirection: 'row',
-                        marginHorizontal: 10,
-                      }}
-                    >
-
-
-                      <Col size={80}>
-                        <Text h5>{this.props.priceDetails.description4}</Text>
-                      </Col>
-                      <Col size={19}>
-                        <Text 
-                           style={{
-                          fontSize: 16
-                        }}
-                        > ${this.props.priceDetails.amount4}</Text>
-                      </Col>
-                      <Col size={10}>
-                        <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('4')} />
-                      </Col>
-
-                    </Row>
-                  </Grid>
-       : null}
-
-
-                { this.props.priceDetails.description5 ?
-
-                  <Grid>
-                    <Text
-                      style={{
-                        alignSelf: 'center',
-                      }}
-                      h4
-                    >OR</Text>
-                    <Row
-                      style={{
-                        borderWidth: 1.5,
-                        borderColor: 'grey',
-                        borderRadius: 6,
-                        flexDirection: 'row',
-                        marginHorizontal: 10,
-                      }}
-                    >
-
-
-                      <Col size={80}>
-                        <Text h5>{this.props.priceDetails.description5}</Text>
-                      </Col>
-                      <Col size={19}>
-                        <Text 
-                           style={{
-                          fontSize: 16
-                        }}
-                        > ${this.props.priceDetails.amount5}</Text>
-                      </Col>
-                      <Col size={10}>
-                        <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('5')} />
-                      </Col>
-
-                    </Row>
-                  </Grid>
-       : null}
-              </View> }
             </View> : <View>
-              { this.props.price.description ?
+              <Text h4 style={{ alignSelf: 'center' }}>Pricing Preview</Text>
+
+              { this.props.priceDetails.description0 ?
+
                 <Grid>
                   <Row
                     style={{
@@ -292,28 +92,99 @@ class _PhotoCard extends React.Component {
                       borderRadius: 6,
                       flexDirection: 'row',
                       marginHorizontal: 10,
-                      marginVertical: 10,
                     }}
                   >
                     <Col size={80}>
-                      <Text h5>{this.props.price.description}</Text>
+                     <Text h5>{this.props.priceDetails.description0}</Text>
                     </Col>
                     <Col size={18}>
-                      <Text 
-                         style={{
-                          fontSize: 16
-                        }}
-                      > ${this.props.price.amount}</Text>
+                      <Text style={{
+                        fontSize: 16,
+                      }}
+                      > ${this.props.priceDetails.amount0}</Text>
                     </Col>
-                    <Col size={10}>
-                      <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option0')} />
+                    <Col size={15}>
+                      <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('0')} />
                     </Col>
 
                   </Row>
                 </Grid>
        : null}
 
-              { this.props.price.option1.description ?
+              { this.props.priceDetails.description1 ?
+
+                <Grid>
+                    <Text
+                    style={{
+                      alignSelf: 'center',
+                    }}
+                    h4
+                  >OR</Text>
+                  <Row
+                    style={{
+                      borderWidth: 1.5,
+                      borderColor: 'grey',
+                      borderRadius: 6,
+                      flexDirection: 'row',
+                      marginHorizontal: 10,
+                    }}
+                  >
+                  
+                    <Col size={80}>
+                    
+                      <Text h5>{this.props.priceDetails.description1}</Text>
+                    </Col>
+                    <Col size={18}>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                        }}
+                      > ${this.props.priceDetails.amount1}</Text>
+                    </Col>
+                    <Col size={10}>
+                      <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('1')} />
+                    </Col>
+
+                  </Row>
+                </Grid>
+       : null}
+              { this.props.priceDetails.description2 ?
+                <Grid>
+                  <Text
+                    style={{
+                      alignSelf: 'center',
+                    }}
+                    h4
+                  >OR</Text>
+                  <Row
+                    style={{
+                      borderWidth: 1.5,
+                      borderColor: 'grey',
+                      borderRadius: 6,
+                      flexDirection: 'row',
+                      marginHorizontal: 10,
+                    }}
+                  >
+
+
+                    <Col size={80}>
+                      <Text h5>{this.props.priceDetails.description2}</Text>
+                    </Col>
+                    <Col size={19}>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                        }}
+                      > ${this.props.priceDetails.amount2}</Text>
+                    </Col>
+                    <Col size={10}>
+                      <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('2')} />
+                    </Col>
+
+                  </Row>
+                </Grid>
+       : null}
+              { this.props.priceDetails.description3 ?
                 <Grid>
                   <Text
                     style={{
@@ -331,24 +202,25 @@ class _PhotoCard extends React.Component {
                     }}
                   >
                     <Col size={80}>
-                      <Text h5>{this.props.price.option1.description}</Text>
+                      <Text h5>{this.props.priceDetails.description3}</Text>
                     </Col>
-                    <Col size={18}>
-                      <Text 
-                         style={{
-                          fontSize: 16
+                    <Col size={19}>
+                      <Text
+                        style={{
+                          fontSize: 16,
                         }}
-                      > ${this.props.price.option1.amount}</Text>
+                      > ${this.props.priceDetails.amount3}</Text>
                     </Col>
                     <Col size={10}>
-                      <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option1')} />
+                      <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('3')} />
                     </Col>
 
                   </Row>
                 </Grid>
        : null}
 
-              { this.props.price.option2.description ?
+              { this.props.priceDetails.description4 ?
+
                 <Grid>
                   <Text
                     style={{
@@ -365,24 +237,29 @@ class _PhotoCard extends React.Component {
                       marginHorizontal: 10,
                     }}
                   >
+
+
                     <Col size={80}>
-                      <Text h5>{this.props.price.option2.description}</Text>
+                      <Text h5>{this.props.priceDetails.description4}</Text>
                     </Col>
-                    <Col size={18}>
-                      <Text 
-                         style={{
-                          fontSize: 16
+                    <Col size={19}>
+                      <Text
+                        style={{
+                          fontSize: 16,
                         }}
-                      > ${this.props.price.option2.amount}</Text>
+                      > ${this.props.priceDetails.amount4}</Text>
                     </Col>
                     <Col size={10}>
-                      <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option2')} />
+                      <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('4')} />
                     </Col>
 
                   </Row>
                 </Grid>
        : null}
-              { this.props.price.option3.description ?
+
+
+              { this.props.priceDetails.description5 ?
+
                 <Grid>
                   <Text
                     style={{
@@ -399,91 +276,238 @@ class _PhotoCard extends React.Component {
                       marginHorizontal: 10,
                     }}
                   >
+
+
                     <Col size={80}>
-                      <Text h5>{this.props.price.option3.description}</Text>
+                      <Text h5>{this.props.priceDetails.description5}</Text>
                     </Col>
-                    <Col size={18}>
-                      <Text 
-                         style={{
-                          fontSize: 16
+                    <Col size={19}>
+                      <Text
+                        style={{
+                          fontSize: 16,
                         }}
-                      > ${this.props.price.option3.amount}</Text>
+                      > ${this.props.priceDetails.amount5}</Text>
                     </Col>
                     <Col size={10}>
-                      <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option3')} />
+                      <Icon color={'red'} name={'close'} onPress={() => this.props.deletePrice('5')} />
                     </Col>
 
-                  </Row>
-                </Grid>
-       : null}
-              { this.props.price.option4.description ?
-                <Grid>
-                  <Text
-                    style={{
-                      alignSelf: 'center',
-                    }}
-                    h4
-                  >OR</Text>
-                  <Row
-                    style={{
-                      borderWidth: 1.5,
-                      borderColor: 'grey',
-                      borderRadius: 6,
-                      flexDirection: 'row',
-                      marginHorizontal: 10,
-                    }}
-                  >
-                    <Col size={80}>
-                      <Text h5>{this.props.price.option4.description}</Text>
-                    </Col>
-                    <Col size={18}>
-                      <Text 
-                         style={{
-                          fontSize: 16
-                        }}
-                      > ${this.props.price.option4.amount}</Text>
-                    </Col>
-                    <Col size={10}>
-                      <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option4')} />
-                    </Col>
-
-                  </Row>
-                </Grid>
-       : null}
-              { this.props.price.option5.description ?
-                <Grid>
-                  <Text
-                    style={{
-                      alignSelf: 'center',
-                    }}
-                    h4
-                  >OR</Text>
-                  <Row
-                    style={{
-                      borderWidth: 1.5,
-                      borderColor: 'grey',
-                      borderRadius: 6,
-                      flexDirection: 'row',
-                      marginHorizontal: 10,
-                    }}
-                  >
-                    <Col size={80}>
-                      <Text h5>{this.props.price.option5.description}</Text>
-                    </Col>
-                    <Col size={18}>
-                      <Text 
-                         style={{
-                          fontSize: 16
-                        }}
-                      > ${this.props.price.option5.amount}</Text>
-                    </Col>
-                    <Col size={10}>
-                      <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option5')} />
-                    </Col>
                   </Row>
                 </Grid>
        : null}
             </View> }
+          </View> : <View>
+            { this.props.price.description ?
+              <Grid>
+                <Row
+                  style={{
+                    borderWidth: 1.5,
+                    borderColor: 'grey',
+                    borderRadius: 6,
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                    marginVertical: 10,
+                  }}
+                >
+
+                  <Col size={80}>
+
+                    <TouchableHighlight
+                      onPress={() => this.props.editPrice({ description: this.props.price.description, amount: this.props.price.amount })}
+                    >
+                      <View>
+                        <Text h5>{this.props.price.description}</Text>
+                      </View>
+                    </TouchableHighlight>
+
+
+                  </Col>
+                  <Col size={18}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                      }}
+                    > ${this.props.price.amount}</Text>
+                  </Col>
+                  <Col size={10}>
+                    <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option0')} />
+                  </Col>
+
+                </Row>
+              </Grid>
+       : null}
+
+            { this.props.price.option1.description ?
+              <Grid>
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                  }}
+                  h4
+                >OR</Text>
+                <Row
+                  style={{
+                    borderWidth: 1.5,
+                    borderColor: 'grey',
+                    borderRadius: 6,
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                  }}
+                >
+                  <Col size={80}>
+                    <Text h5>{this.props.price.option1.description}</Text>
+                  </Col>
+                  <Col size={18}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                      }}
+                    > ${this.props.price.option1.amount}</Text>
+                  </Col>
+                  <Col size={10}>
+                    <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option1')} />
+                  </Col>
+
+                </Row>
+              </Grid>
+       : null}
+
+            { this.props.price.option2.description ?
+              <Grid>
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                  }}
+                  h4
+                >OR</Text>
+                <Row
+                  style={{
+                    borderWidth: 1.5,
+                    borderColor: 'grey',
+                    borderRadius: 6,
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                  }}
+                >
+                  <Col size={80}>
+                    <Text h5>{this.props.price.option2.description}</Text>
+                  </Col>
+                  <Col size={18}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                      }}
+                    > ${this.props.price.option2.amount}</Text>
+                  </Col>
+                  <Col size={10}>
+                    <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option2')} />
+                  </Col>
+
+                </Row>
+              </Grid>
+       : null}
+            { this.props.price.option3.description ?
+              <Grid>
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                  }}
+                  h4
+                >OR</Text>
+                <Row
+                  style={{
+                    borderWidth: 1.5,
+                    borderColor: 'grey',
+                    borderRadius: 6,
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                  }}
+                >
+                  <Col size={80}>
+                    <Text h5>{this.props.price.option3.description}</Text>
+                  </Col>
+                  <Col size={18}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                      }}
+                    > ${this.props.price.option3.amount}</Text>
+                  </Col>
+                  <Col size={10}>
+                    <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option3')} />
+                  </Col>
+
+                </Row>
+              </Grid>
+       : null}
+            { this.props.price.option4.description ?
+              <Grid>
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                  }}
+                  h4
+                >OR</Text>
+                <Row
+                  style={{
+                    borderWidth: 1.5,
+                    borderColor: 'grey',
+                    borderRadius: 6,
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                  }}
+                >
+                  <Col size={80}>
+                    <Text h5>{this.props.price.option4.description}</Text>
+                  </Col>
+                  <Col size={18}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                      }}
+                    > ${this.props.price.option4.amount}</Text>
+                  </Col>
+                  <Col size={10}>
+                    <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option4')} />
+                  </Col>
+
+                </Row>
+              </Grid>
+       : null}
+            { this.props.price.option5.description ?
+              <Grid>
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                  }}
+                  h4
+                >OR</Text>
+                <Row
+                  style={{
+                    borderWidth: 1.5,
+                    borderColor: 'grey',
+                    borderRadius: 6,
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                  }}
+                >
+                  <Col size={80}>
+                    <Text h5>{this.props.price.option5.description}</Text>
+                  </Col>
+                  <Col size={18}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                      }}
+                    > ${this.props.price.option5.amount}</Text>
+                  </Col>
+                  <Col size={10}>
+                    <Icon color={'red'} name={'close'} onPress={() => this.deletePricefromDB('option5')} />
+                  </Col>
+                </Row>
+              </Grid>
+       : null}
+          </View> }
         </ScrollView>
       </View>
     );
@@ -523,6 +547,16 @@ const mapPriceDecriptionStateToProps = state => ({
   priceDetails: state.priceDetails,
 });
 
+
+const mapEditPriceState = state => ({
+  editPrice: state.editPrice,
+});
+const mapActionEditPrice = dispatch => ({
+  editPrice(price) {
+    dispatch({ type: 'EDIT_PRICE', payload: price });
+  },
+});
+
 const PhotoCard = compose(
   graphql(deletePrice, { name: 'deletePriceFromServer' }),
   connect(mapGenericStateToProps, mapActionToggleGeneric),
@@ -530,6 +564,7 @@ const PhotoCard = compose(
   connect(null, mapActionDeletePrice),
   connect(mapStateToProps),
   connect(mapCustomStateToProps),
+  connect(mapEditPriceState, mapActionEditPrice),
 )(_PhotoCard);
 
 export default PhotoCard;

@@ -21,13 +21,13 @@ export const uiReducer = (state = {
       return Object.assign({}, state, {
         estimateSpinner: !state.estimateSpinner,
       });
-       case TOGGLE_CONTACT_MODAL:
-   console.log('redicer')
-      
-       return Object.assign({}, state, {
+    case TOGGLE_CONTACT_MODAL:
+      console.log('redicer');
+
+      return Object.assign({}, state, {
         iPadContactModal: !state.iPadContactModal,
       });
-    
+
     default:
       return state;
   }

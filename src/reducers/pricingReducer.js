@@ -36,18 +36,18 @@ export const pricePickerReducer = (state = '', action) => {
 };
 
 const initialState = {
-        description0: '',
-        description1: '',
-        description2: '',
-        description3: '',
-        description4: '',
-        description5: '',
-        amount0: '',
-        amount1: '',
-        amount2: '',
-        amount3: '',
-        amount4: '',
-        amount5: '',
+  description0: '',
+  description1: '',
+  description2: '',
+  description3: '',
+  description4: '',
+  description5: '',
+  amount0: '',
+  amount1: '',
+  amount2: '',
+  amount3: '',
+  amount4: '',
+  amount5: '',
 };
 
 export const SAVE_PRICE_DETAILS = 'SAVE_PRICE_DETAILS';
@@ -58,44 +58,55 @@ export const SAVE_PRICE_DETAILS_COMPLETE = 'SAVE_PRICE_DETAILS_COMPLETE';
 export const priceDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_PRICE_DETAILS:
-      if (state.amount0 && state.amount1 && state.amount2 && state.amount3 && state.amount4) {
+      if (state === initialState) {
         return Object.assign({}, state, {
-          amount5: action.payload.amount,
-          description5: action.payload.description,
+          amount0: action.payload.amount,
+          description0: action.payload.description,
         });
-      } else if (state.amount0 && state.amount1 && state.amount2 && state.amount3) {
+      }
+
+      if (state.description0 && !state.description1) {
+        return Object.assign({}, state, {
+          amount1: action.payload.amount,
+          description1: action.payload.description,
+        });
+      }
+
+      if (state.description0 && state.description1 && !state.description2) {
+        return Object.assign({}, state, {
+          amount2: action.payload.amount,
+          description2: action.payload.description,
+        });
+      }
+      if (state.description0 && state.description1 && state.description2 && !state.description3) {
+        return Object.assign({}, state, {
+          amount3: action.payload.amount,
+          description3: action.payload.description,
+        });
+      }
+      if (state.description0 && state.description1 && state.description2 && state.description3 && !state.description4) {
         return Object.assign({}, state, {
           amount4: action.payload.amount,
           description4: action.payload.description,
         });
-     } else if (state.amount0 && state.amount1 && state.amount2) {
-       return Object.assign({}, state, {
-         amount3: action.payload.amount,
-         description3: action.payload.description,
-      });
-     }  else if (state.amount0 && state.amount1) {
-     return Object.assign({}, state, {
-          amount2: action.payload.amount,
-          description2: action.payload.description,
+      }
+       if (state.description0 && state.description1 && state.description2 && state.description3 && state.description4) {
+        return Object.assign({}, state, {
+          amount5: action.payload.amount,
+          description5: action.payload.description,
         });
-    
-     } else if (state.amount0 ) {
+      }
          return Object.assign({}, state, {
-          amount1: action.payload.amount,
-          description1: action.payload.description,
-        });
-     } 
-      return Object.assign({}, state, {
           amount0: action.payload.amount,
           description0: action.payload.description,
         });
-     case DELETE_PRICE:
-   return Object.assign({}, state, {
-     [`amount${action.payload}`]: '',
-     [`description${action.payload}`]: ''
-   })
+    case DELETE_PRICE:
+      return Object.assign({}, state, {
+        [`amount${action.payload}`]: '',
+        [`description${action.payload}`]: '',
+      });
     case CLEAR_PRICE_DETAILS:
-      return Object.assign({}, state, { 
+      return Object.assign({}, state, {
         amount0: '',
         description0: '',
         amount1: '',
@@ -113,4 +124,3 @@ export const priceDetailsReducer = (state = initialState, action) => {
       return state;
   }
 };
-

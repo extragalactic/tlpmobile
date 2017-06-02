@@ -39,10 +39,10 @@ class PriceList extends React.Component {
         <ScrollView
           style={styles.scrollView}
         >
-          <Row zIndex={100} top createPDFPreview={this.props.createPDFPreview}  sendEstimate={this.props.sendEstimate}/>
-          <Row zIndex={90} top second />
+          <Row zIndex={100} top createPDFPreview={this.props.createPDFPreview} sendEstimate={this.props.sendEstimate} customer={this.props.customer} />
+          <Row zIndex={90} top second customer={this.props.customer} />
           {this.props.prices.map((price, idx) => (
-            <Row zIndex={this.count = this.count - 10} top={false} second={false} price={price} index={idx} />),
+            <Row zIndex={this.count = this.count - 10} top={false} second={false} price={price} index={idx} customer={this.props.customer} />),
       )}
         </ScrollView>
       </View>

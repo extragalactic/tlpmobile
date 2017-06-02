@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Text } from 'react-native-elements';
 import { graphql, compose } from 'react-apollo';
 import {
   View,
-  Text,
   StyleSheet,
   TextInput,
+  Button,
+  Switch,
 } from 'react-native';
 
 class _AdditionalInfoCard extends React.Component {
@@ -48,7 +50,12 @@ class _AdditionalInfoCard extends React.Component {
         }}
       >
         {this.props.second ?
-          <View>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center'
+            }}
+          >
             <TextInput
               multiline
               autoFocus
@@ -70,7 +77,48 @@ class _AdditionalInfoCard extends React.Component {
           </View>
         :
           <View>
-            <TextInput
+         {this.props.top ? <View
+             style={{
+              flex: 1,
+              //alignItems: 'center',
+             
+            }}
+           
+           > 
+           <View
+             style={{
+               flex: 1,
+               marginBottom: 2,
+               flexDirection: 'row',
+               justifyContent: 'center'
+             }}
+           >
+           <Button
+           
+             title={'Delete History Item'}
+           />
+           <View
+            style={{
+               flex: 1,
+               marginBottom: 8,
+               flexDirection: 'row',
+               justifyContent: 'center',
+               alignItems: 'center',
+             }}
+           >
+           <Text
+           h5
+            style={{
+           
+             // alignSelf: 'center',       
+             //  justifyContent: 'center'
+             }}
+           
+           > Save to History </Text>
+           <Switch />
+           </View>
+           </View>
+           <TextInput
               keyboardType={'numeric'}
               autoFocus
               enablesReturnKeyAutomatically
@@ -91,6 +139,29 @@ class _AdditionalInfoCard extends React.Component {
                 justifyContent: 'center',
               }}
             />
+           </View> : <View> 
+           <TextInput
+              keyboardType={'numeric'}
+              autoFocus
+              enablesReturnKeyAutomatically
+              onKeyPress={e => this.handleKeyDownAmount(e)}
+              placeholder={'DollarAmount!'}
+              defaultValue={this.props.editPrice.amount}
+              onChangeText={amount => this.props.editPriceAction({ amount })}
+              style={{
+                borderWidth: 1,
+                borderRadius: 20,
+                alignSelf: 'center',
+                width: this.props.ui.width / 2.4,
+                height: 80,
+                padding: 10,
+                bottom: 10,
+                fontSize: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            />
+           </View> }
           </View>
     }
 
@@ -105,6 +176,10 @@ const mapPriceAmountStateToProps = state => ({
 const mapPriceDecriptionStateToProps = state => ({
   priceDescription: state.priceDescription,
 });
+const mapPriceDetailsStateToProps = state => ({
+  priceDetails: state.priceDetails,
+});
+
 
 const mapPricePickerStateToProps = state => ({
   pricePicker: state.pricePicker,
@@ -129,9 +204,20 @@ const mapActionSavePriceDetails = dispatch => ({
 const mapUiStateToProps = state => ({
   ui: state.ui,
 });
+
+const mapEditPriceState = state => ({
+  editPrice: state.editPrice,
+});
+const mapActionEditPrice = dispatch => ({
+  editPriceAction(price) {
+    dispatch({ type: 'EDIT_PRICE', payload: price });
+  },
+});
+
 const AdditionalInfoCard = compose(
+  connect(mapEditPriceState, mapActionEditPrice),
   connect(mapPriceAmountStateToProps, mapActionSavePriceAmount),
-  connect(null, mapActionSavePriceDetails),
+  connect(mapPriceDetailsStateToProps, mapActionSavePriceDetails),
   connect(null, mapActionSaveCustomText),
   connect(mapPriceDecriptionStateToProps),
   connect(mapPricePickerStateToProps),

@@ -517,11 +517,15 @@ const checkConnection = gql `
 const toggleNoReply = gql `
   mutation toggleStatus($custid: String, $userid: String){
   toggleNoReply(custid: $custid, userid: $userid)
-}
-`;
+}`;
+const saveEstimatePreview = gql `
+  mutation saveEstimatePreview($custid: String, $url: String){
+  saveEstimatePDF(custid: $custid, url: $url)
+}`;
 
 export {
   toggleNoReply,
+  saveEstimatePreview,
   checkConnection,
   deleteSurveyNotes,
   searchCustomer,

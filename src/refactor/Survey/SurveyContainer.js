@@ -174,12 +174,6 @@ class _SurveyContainer extends React.Component {
               raised
               onPress={() => Actions.surveyCompleteContainer({ id: this.props.currentCustomer })}
             />
-            <Icon
-              name="help-outline"
-              color="#517fa4"
-              raised
-              onPress={() => console.log(this)}
-            />
           </View>
         </Row>
         <Row
