@@ -709,7 +709,18 @@ const getQueue = gql `
   }
 }`;
 
+
+const getEmailStatus = gql `
+  query getStatus($custid:String){
+  getStatus(custid: $custid) {
+    clicks
+    views
+    delivery
+  }
+}`;
+
 export {
+  getEmailStatus,
   getQueue,
   getMyCustomer,
   getUserandCustomers,

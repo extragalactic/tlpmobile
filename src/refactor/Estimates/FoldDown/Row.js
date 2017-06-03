@@ -103,6 +103,7 @@ class _Row extends Component {
         createPDFPreview={this.props.top ? this.props.createPDFPreview : (() => {})}
         sendEstimate={this.props.top ? this.props.sendEstimate : (() => {})}
         onPress={this.flip}
+         customer={this.props.customer}
         top={this.props.top}
         second={this.props.second}
         price={this.props.price}

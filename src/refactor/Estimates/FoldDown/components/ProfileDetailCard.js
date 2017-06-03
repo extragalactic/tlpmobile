@@ -78,13 +78,13 @@ class _ProfileDetailCard extends React.Component {
                   }}
                 >
                 
-                  {this.props.data.getPrices.map((price) => (
+                  {this.props.data.getPrices ? this.props.data.getPrices.map((price, idx) => (
                     <PickerItemIOS
-                      key={price._id}
+                      key={idx}
                       value={price.description}
                       label={price.description}
                     />
-        ))}
+        )) : null }
                 </PickerIOS>
               </View>
 

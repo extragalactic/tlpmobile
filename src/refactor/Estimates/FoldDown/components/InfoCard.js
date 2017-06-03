@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Text } from 'react-native-elements';
+import { Icon, Text, ListItem, List } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { graphql, compose } from 'react-apollo';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -7,12 +7,15 @@ import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 
 import generics from '../../../Estimates/generics';
+import { getEmailStatus } from '../../../../graphql/queries';
+import EstimatePreviewModal from '../../../../components/Modals/estimatePreviewModal';
 
 import {
   View,
   StyleSheet,
   ScrollView,
   TouchableHighlight,
+  SegmentedControlIOS,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -40,10 +43,37 @@ const styles = StyleSheet.create({
 class _InfoCard extends React.Component {
   constructor() {
     super();
-    this.state = { someKey: 'someValue' };
+    this.state = { estimateSelect: '', estimateUrl: '', estimatePreviewModal: false };
   }
 
+  renderStatus = () => {
+    if(this.props.data.getStatus){
+    if(this.props.data.getStatus.clicks) {
+       return(
+        <View><Text h4  style={{
+          alignSelf: 'center'
+        }} >Estimate has been opened</Text></View>
+      )
+    }
+    if(this.props.data.getStatus.views) {
+      return(
+        <View><Text>Email has been viewed</Text></View>
+      )
+    }
+      if(this.props.data.getStatus.delivery){
+      return(
+        <View><Text>Email has been delivered</Text></View>
+      )
+    }
+
+    return (
+           <View><Text>No Estimate has been sent</Text></View>
+   )
+  }
+    }
+
   render() {
+  //    console.log('email status', this)
     return (
       <View style={styles.container}>
         <Grid>
@@ -84,7 +114,11 @@ class _InfoCard extends React.Component {
                     }}
                   >
                     {this.props.ui.estimateSpinner ? <Spinner color={'#517fa4'} /> :
-                    <View
+                  <Grid>
+      <Row style={{
+          //  backgroundColor: 'blue'
+          }} size={40}>
+              <View
                       style={{
                         flex: 1,
                         flexDirection: 'row',
@@ -116,7 +150,100 @@ class _InfoCard extends React.Component {
                         size={32}
                         onPress={() => this.props.sendEstimate()}
                       />
+
+        
                     </View>
+          </Row>
+
+                <Row style={{
+            //backgroundColor: 'green'
+          }} size={50}>
+      <View
+        style={{
+          flex: 1, 
+          flexDirection: 'column',
+        }}
+      >
+  <Row
+    size={8}
+    style={{
+     // backgroundColor: 'green'
+    }}
+  >
+  <View
+    style={{
+      flex: 1,
+      alignItems: 'center',
+    //  justifyContent: 'center'
+    }}
+  >
+ <SegmentedControlIOS
+                  style={{
+                    marginHorizontal: 2,
+                    width: 400,
+                  }}
+                  values={['Preview', 'Sent']}
+                  onValueChange={estimateSelect => this.setState({ estimateSelect })}
+                />
+
+                <ScrollView
+                  style={{
+                    flex: 1,
+                    marginBottom: 20,
+                    width: 320,
+                  }}
+                >
+                 
+                        {this.state.estimateSelect === 'Preview' && this.props.customer.previewHistory.length > 0 ?
+                          this.props.customer.previewHistory.map(preview => (
+                            <ListItem
+                              title={preview.timestamp}
+                              onPress={() => this.setState({
+                                estimateUrl: preview.url,
+                                estimatePreviewModal: true,
+                              })}
+                            />
+                ))
+                : null}
+                        {this.state.estimateSelect === 'Sent' && this.props.customer.estimateHistory.length > 0 ?
+                this.props.customer.estimateHistory.map(preview => (
+                  <ListItem
+                    title={preview.timestamp}
+                    onPress={() => this.setState({
+                      estimateUrl: preview.url,
+                      estimatePreviewModal: true,
+                    })}
+                  />
+                ))
+                : null}
+
+                    </ScrollView>
+  </View>
+  
+  </Row>
+   <Row
+    size={3}
+  
+  >
+  <View
+  style={{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }}
+  >
+  {this.renderStatus()}
+
+  </View>
+  
+  </Row>
+          
+           </View>
+          </Row>
+                  </Grid>
+                  
+                  
+                
                 }
                   </View>
         }
@@ -262,10 +389,9 @@ class _InfoCard extends React.Component {
         </ScrollView>
       </View>}
           </Row>
-          
-          <Row size={10} >
-          
-            <View
+        
+          <Row size={15} >
+           <View
               style={{
                 flex: 1,
                 alignItems: 'center',
@@ -284,6 +410,12 @@ class _InfoCard extends React.Component {
             </View>
           </Row>
         </Grid>
+           <EstimatePreviewModal
+          url={this.state.estimateUrl}
+          open={this.state.estimatePreviewModal}
+          close={() => this.setState({ estimatePreviewModal: false })}
+          customer={this.props.customer}
+        />
       </View>);
   }
  }
@@ -296,8 +428,11 @@ const mapGenericStateToProps = state => ({
 });
 
 const InfoCard = compose(
-connect(mapUiStateToProps),
-connect(mapGenericStateToProps),
+  connect(mapUiStateToProps),
+  connect(mapGenericStateToProps),
+  graphql(getEmailStatus, {
+    options: ({ customer }) => ({ variables: { custid: customer.id } }),
+  }),
 )(_InfoCard);
 
 export default InfoCard;
