@@ -46,7 +46,15 @@ class _CustomerListContainerQueue extends React.Component {
               {this.props.data.getQueue ?
                 this.props.data.getQueue.map((customer, idx) => (
                   <ListItem
-                    containerStyle={MasterStyleSheet.customersListItem}
+                   underlayColor="#72C2E2"
+                   containerStyle={{
+                     backgroundColor: customer.id === this.props.currentCustomer ? '#779ECB' : null,
+                     height: 90,
+                   }}
+                     subtitleStyle={{
+                  color: customer.id === this.props.currentCustomer ? 'white' : 'grey',
+
+                   }}
                     key={idx}
                     title={customer.address}
                     subtitle={`${customer.firstName} ${customer.lastName}`}
@@ -75,8 +83,15 @@ class _CustomerListContainerQueue extends React.Component {
           {this.props.data.getQueue ?
             this.props.data.getQueue.map((customer, idx) => (
               <ListItem
-                containerStyle={MasterStyleSheet.customersListItem}
-                key={idx}
+               underlayColor="#72C2E2"
+                   containerStyle={{
+                     backgroundColor: customer.id === this.props.currentCustomer ? '#779ECB' : null,
+                     height: 90,
+                   }}
+                     subtitleStyle={{
+                  color: customer.id === this.props.currentCustomer ? 'white' : 'grey',
+
+                   }}                key={idx}
                 title={customer.address}
                 subtitle={`${customer.firstName} ${customer.lastName}`}
                 onPress={() => this.selectCustomer(customer.id)}

@@ -500,6 +500,7 @@ const getPrices = gql`
   getPrices {
     description
     price
+    _id
   }
 }`;
 
@@ -708,7 +709,18 @@ const getQueue = gql `
   }
 }`;
 
+
+const getEmailStatus = gql `
+  query getStatus($custid:String){
+  getStatus(custid: $custid) {
+    clicks
+    views
+    delivery
+  }
+}`;
+
 export {
+  getEmailStatus,
   getQueue,
   getMyCustomer,
   getUserandCustomers,

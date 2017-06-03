@@ -49,8 +49,15 @@ class _CustomerListContainer extends React.Component {
                 {this.props.data.getMyCustomers ?
                 this.props.data.getMyCustomers[this.props.params.type].map((customer, idx) => (
                   <ListItem
-                    containerStyle={MasterStyleSheet.customersListItem}
-                    key={idx}
+                    underlayColor="#72C2E2"
+                   containerStyle={{
+                     backgroundColor: customer.id === this.props.currentCustomer ? '#779ECB' : null,
+                     height: 90,
+                   }}
+                     subtitleStyle={{
+                  color: customer.id === this.props.currentCustomer ? 'white' : 'grey',
+
+                   }}                    key={idx}
                     title={customer.address}
                     subtitle={`${customer.firstName} ${customer.lastName}`}
                     onPress={() => this.props.saveCustomer(customer.id)}
@@ -81,8 +88,15 @@ class _CustomerListContainer extends React.Component {
           {this.props.data.getMyCustomers ?
             this.props.data.getMyCustomers[this.props.params.type].map((customer, idx) => (
               <ListItem
-                containerStyle={MasterStyleSheet.customersListItem}
-                key={idx}
+                   underlayColor="#72C2E2"
+                   containerStyle={{
+                     backgroundColor: customer.id === this.props.currentCustomer ? '#779ECB' : null,
+                     height: 90,
+                   }}
+                     subtitleStyle={{
+                  color: customer.id === this.props.currentCustomer ? 'white' : 'grey',
+                   }}               
+                   key={idx}
                 title={customer.address}
                 subtitle={`${customer.firstName} ${customer.lastName}`}
                 onPress={() => this.selectCustomer(customer.id)}

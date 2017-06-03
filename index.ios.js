@@ -19,6 +19,7 @@ import
 import { uiReducer } from './src/reducers/uiReducers';
 import { authStatusReducer, graphqlStatusReducer } from './src/reducers/statusReducer';
 import { estimateReducer } from './src/reducers/estimateReducer';
+import { editPriceReducer } from './src/reducers/editPriceReducer';
 
 const client = new ApolloClient({
   connectToDevTools: true,
@@ -47,6 +48,7 @@ const combinedReducers =
     priceDetails: priceDetailsReducer,
     generics: genericsReducer,
     customText: estimateReducer,
+    editPrice: editPriceReducer,
     ui: uiReducer,
   });
 

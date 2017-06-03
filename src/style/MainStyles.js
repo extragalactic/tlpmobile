@@ -26,8 +26,8 @@ const MasterStyleSheet = StyleSheet.create({
 
   },
   ipadViewLeft: {
-    marginTop: 45,
-    height: window.height - 50,
+    flex: 1,
+    marginTop: DeviceInfo.isTablet() ? 45 : 45,
   },
   ipadViewRight: {
     marginTop: 5,
