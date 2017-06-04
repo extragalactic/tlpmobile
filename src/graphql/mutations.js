@@ -364,8 +364,8 @@ const deletePrice = gql `
 }`;
 
 const editPriceDescription = gql `
-  mutation($custid: String, $index: Int, $option: String, $text: String ){
-  editPriceDescription(custid:$custid, index: $index, option: $option, text: $text)
+  mutation($custid: String, $index: Int, $option: String, $text: String, $amount: String  ){
+  editPriceDescription(custid:$custid, index: $index, option: $option, text: $text, amount: $amount)
 }`;
 const editPriceAmount = gql `
   mutation($custid: String, $index: Int, $option: String, $amount: String ){
@@ -517,11 +517,30 @@ const checkConnection = gql `
 const toggleNoReply = gql `
   mutation toggleStatus($custid: String, $userid: String){
   toggleNoReply(custid: $custid, userid: $userid)
-}
-`;
+}`;
+const saveEstimatePreview = gql `
+  mutation saveEstimatePreview($custid: String, $url: String){
+  saveEstimatePDF(custid: $custid, url: $url)
+}`;
+
+const addPricetoHistory = gql `
+  mutation addPricetoHistory($description: String){
+  addPriceToHistory(description: $description) {
+    description
+    _id
+  }
+}`;
+
+const deleteEstimateFromHistory = gql `
+  mutation deleteEstimateFromHistory($id: String){
+  deletePriceFromHistory(id: $id)
+}`;
 
 export {
+  deleteEstimateFromHistory,
+  addPricetoHistory,
   toggleNoReply,
+  saveEstimatePreview,
   checkConnection,
   deleteSurveyNotes,
   searchCustomer,

@@ -82,7 +82,7 @@ class _Home extends Component {
     <Text> Build # {DeviceInfo.getBuildNumber()} </Text>
       <Image
         style={{width: 300, height: 300, right: 12}}
-        source={{uri: 'https://s3.ca-central-1.amazonaws.com/3lpm/webfiles/3lplogo.png'}}
+          source={require('../../../assets/logo.png')}
       />
     { this.props.authStatus ? <View><Text>
       You are logged in!

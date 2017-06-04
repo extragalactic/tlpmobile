@@ -51,14 +51,28 @@ class _SearchContainer extends React.Component {
               }}
               lightTheme
               onChangeText={text => this.onSearchInputChange(text)}
-              placeholder="Type Here..."
+              placeholder="Type in a customer name, number or address"
             />
-
-            <List>
+             <ScrollView>
+            <List
+              style={{
+                marginTop: 0
+              }}
+            >
               {this.state.customers ?
                 this.state.customers.map((customer, idx) => (
                   <ListItem
-                    containerStyle={searchStyles.customersListItem}
+                   underlayColor="#72C2E2"
+                   containerStyle={{
+                     backgroundColor: customer.id === this.props.currentCustomer ? '#779ECB' : null,
+                     height: 90,
+
+                   }}
+                   subtitleStyle={{
+                  color: customer.id === this.props.currentCustomer ? 'white' : 'grey',
+
+                   }}
+                  //  containerStyle={searchStyles.customersListItem}
                     key={idx}
                     title={customer.address}
                     subtitle={`${customer.firstName} ${customer.lastName}`}
@@ -66,6 +80,7 @@ class _SearchContainer extends React.Component {
                   />),
               ) : null }
             </List>
+            </ScrollView>
           </Col>
           <Col style={MasterStyleSheet.ipadViewRight}>
             <CustomerDetailsContainer

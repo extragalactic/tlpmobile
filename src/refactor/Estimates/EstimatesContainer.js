@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, Image, Dimensions, ScrollView, AlertIOS, TouchableHighlight } from 'react-native';
+import { View, Image, Dimensions, ScrollView, AlertIOS, TouchableHighlight, Share, KeyboardAvoidingView } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { Text, Card } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
 import { graphql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
 import DeviceInfo from 'react-native-device-info';
-
-import { generatePDF } from '../../graphql/mutations';
+import { generatePDF, saveEstimatePreview } from '../../graphql/mutations';
 import { getFinishedSurvey } from '../../graphql/queries';
 import { MasterStyleSheet } from '../../style/MainStyles';
 import ZoomViewModal from '../../components/photoGallery/zoomViewModal';
@@ -62,6 +61,8 @@ class _EstimatesContainer extends React.Component {
         'What do you want to do?',
           [
           { text: 'View', onPress: () => this.setState({ estimatePreviewModal: true }) },
+          { text: 'Save', onPress: () => this.saveEstimatePreview() },
+          { text: 'Share', onPress: () => this.shareEstimate() },
           { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
           ],
       );
@@ -71,7 +72,7 @@ class _EstimatesContainer extends React.Component {
   };
 
   sendEstimate = () => {
-    if (this.props.data.customer.estimateHistory.length > 1) {
+    if (this.props.data.customer.estimateHistory.length !== 1 && this.props.data.customer.estimateHistory.length !== 0) {
       AlertIOS.alert(
       'ESTIMATE ALREADY SENT!',
        'An estimate has beem sent to this customer, Do you really want to send again?',
@@ -113,7 +114,24 @@ class _EstimatesContainer extends React.Component {
     );
     }
   }
-
+  saveEstimatePreview = () => {
+    this.props.saveEstimatePreview({
+      variables: {
+        custid: this.props.currentCustomer,
+        url: this.state.estimateUrl,
+      },
+    });
+  }
+  shareEstimate = () => {
+    Share.share({
+      message: `${this.props.data.customer.firstName} ${this.props.data.customer.lastName} ${this.props.data.customer.address}`,
+      url: this.state.estimateUrl,
+      title: 'Estimate Preview',
+    }, {
+      dialogTitle: 'Share Estimate Preview',
+      tintColor: 'green',
+    });
+  }
   selectImage = (image) => {
     this.setState({
       currentSelection: image,
@@ -152,74 +170,74 @@ class _EstimatesContainer extends React.Component {
             size={53}
             style={MasterStyleSheet.EstimateModalColLeft}
           >
-              <Swiper
-                showsButtons
-                width={window.width / 2}
-              >
-                { this.props.data.getFinishedSurveyQuery.map((survey, idx) => (
-                  <View
-              
-                    key={idx}
+            <Swiper
+              showsButtons
+              width={window.width / 2}
+            >
+              { this.props.data.getFinishedSurveyQuery.map((survey, idx) => (
+                <View
+
+                  key={idx}
+                >
+                  <Card
+                    title={survey.heading}
+                    containerStyle={{
+                      marginTop: 70,
+                      borderRadius: 15,
+                      height: window.height - 86,
+                      right: 10,
+                      width: window.width / 2.099,
+                    }}
                   >
-                    <Card
-                      title={survey.heading}
-                      containerStyle={{
-                        marginTop: 70,
-                        borderRadius: 15,
-                        height: window.height - 86,
-                        right: 10,
-                        width: window.width / 2.099,
-                      }}
+                    <Swiper
+                      width={window.width / 2}
+                      height={window.height / 2.2}
                     >
-                      <Swiper
-                        width={window.width / 2}
-                        height={window.height / 2.2}
-                      >
-                        {survey.photos.map((photo, idx) => (
-                          <View
-                            key={idx}
-                            style={MasterStyleSheet.surveyResultInsideView}
+                      {survey.photos.map((photo, idx) => (
+                        <View
+                          key={idx}
+                          style={MasterStyleSheet.surveyResultInsideView}
+                        >
+                          <TouchableHighlight
+                            onPress={() => this.selectImage(photo.url)}
                           >
-                            <TouchableHighlight
-                              onPress={() => this.selectImage(photo.url)}
-                            >
-                              <Image
-                                style={
-                                  {
+                            <Image
+                              style={
+                                {
                                   width: window.width / 2.5,
                                   height: DeviceInfo.isTablet() ? window.height / 2 : window.height / 3.5,
-                                  }
                                 }
-                                source={{ uri: photo.url }}
-                              />
-                            </TouchableHighlight>
-                          </View>
+                                }
+                              source={{ uri: photo.url }}
+                            />
+                          </TouchableHighlight>
+                        </View>
           ))}
-                      </Swiper>
-                      <Card
-                        containerStyle={{
-                          backgroundColor: '#FFFFA5',
-                          width: window.width / 2.2,
-                          height: window.height / 3.7,
-                          borderRadius: 15,
-                          right: 20,
-                        }}
-                      >
-                        <ScrollView >
-                          { survey.notes.map((note, idx) => (
-                            <View key={idx}>
-                              <Text h3> {note.description}</Text>
-                              <Text h4> {note.text}</Text>
-                            </View>
+                    </Swiper>
+                    <Card
+                      containerStyle={{
+                        backgroundColor: '#FFFFA5',
+                        width: window.width / 2.2,
+                        height: window.height / 3.7,
+                        borderRadius: 15,
+                        right: 20,
+                      }}
+                    >
+                      <ScrollView >
+                        { survey.notes.map((note, idx) => (
+                          <View key={idx}>
+                            <Text h3> {note.description}</Text>
+                            <Text h4> {note.text}</Text>
+                          </View>
                 ))}
-                        </ScrollView>
-                      </Card>
+                      </ScrollView>
                     </Card>
+                  </Card>
 
-                  </View>
+                </View>
         ))}
-              </Swiper>
-     
+            </Swiper>
+
 
           </Col>
           <Col
@@ -230,8 +248,10 @@ class _EstimatesContainer extends React.Component {
               style={MasterStyleSheet.EstimatePreviewCard}
             >
               <Grid>
+
+
                 <PriceList
-                  sendEstimate={this. sendEstimate}
+                  sendEstimate={this.sendEstimate}
                   createPDFPreview={this.previewEstimate}
                   id={this.props.id}
                   customer={this.props.data.customer}
@@ -283,6 +303,7 @@ const mapActionToggleEstimateSpinner = dispatch => ({
 
 const EstimatesContainer = compose(
     graphql(generatePDF, { name: 'generatePDF' }),
+    graphql(saveEstimatePreview, { name: 'saveEstimatePreview' }),
     connect(mapUIStateToProps, mapActionToggleEstimateSpinner),
     connect(mapStateToProps, null),
     connect(mapGenericStateToProps),

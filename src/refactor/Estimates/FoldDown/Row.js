@@ -1,12 +1,15 @@
 import React, {
   Component,
 } from 'react';
+import { graphql, compose } from 'react-apollo';
 
 import {
   LayoutAnimation,
   UIManager,
   View,
+  AlertIOS,
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import FoldView from 'react-native-foldview';
 
@@ -30,7 +33,7 @@ const Spacer = ({ height }) => (
   />
 );
 
-export default class Row extends Component {
+class _Row extends Component {
 
   constructor(props) {
     super(props);
@@ -51,9 +54,29 @@ export default class Row extends Component {
     this.setState(this.state);
   }
   flip() {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
+    if (this.props.priceDetails.description0) {
+      AlertIOS.alert(
+      'Unsaved Work!',
+       'You didnt submit your price, are you sure you want to exit?',
+      [{ text: 'YES', onPress: () => {
+        this.setState({
+          expanded: !this.state.expanded,
+        });
+        this.props.editPriceAction({ description: ' ', amount: ' ' });
+        this.props.clearPriceDetails();
+        
+      } },
+        { text: 'NO',
+          onPress: () => console.log("No"),
+        },
+      ],
+      );
+    } else {
+      this.setState({
+        expanded: !this.state.expanded,
+      });
+      this.props.editPriceAction({ description: ' ', amount: ' ' });
+    }
   }
 
   handleAnimationStart(duration, height) {
@@ -80,6 +103,7 @@ export default class Row extends Component {
         createPDFPreview={this.props.top ? this.props.createPDFPreview : (() => {})}
         sendEstimate={this.props.top ? this.props.sendEstimate : (() => {})}
         onPress={this.flip}
+         customer={this.props.customer}
         top={this.props.top}
         second={this.props.second}
         price={this.props.price}
@@ -89,7 +113,10 @@ export default class Row extends Component {
 
   renderBackface() {
     return (
-      <ProfileCard refresh={this.refresh} second={this.props.second} onPress={this.flip} />
+      <ProfileCard
+        customer={this.props.customer} refresh={this.refresh} index={this.props.index} top={this.props.top}
+        second={this.props.second} onPress={this.flip}
+      />
     );
   }
 
@@ -136,3 +163,27 @@ export default class Row extends Component {
     );
   }
 }
+
+const mapPriceDetailsStateToProps = state => ({
+  priceDetails: state.priceDetails,
+});
+
+const mapActionClearPriceDetails = dispatch => ({
+  clearPriceDetails(priceDetails) {
+    dispatch({ type: 'CLEAR_PRICE_DETAILS', payload: priceDetails });
+  },
+});
+
+const mapActionEditPrice = dispatch => ({
+  editPriceAction(price) {
+    dispatch({ type: 'EDIT_PRICE', payload: price });
+  },
+});
+
+const Row = compose(
+connect(null, mapActionClearPriceDetails),
+ connect(null, mapActionEditPrice),
+ connect(mapPriceDetailsStateToProps),
+)(_Row);
+
+export default Row;

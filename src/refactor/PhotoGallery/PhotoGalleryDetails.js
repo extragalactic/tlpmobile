@@ -5,7 +5,8 @@ import {
   CameraRoll,
   AlertIOS,
   Modal,
-  View } from 'react-native';
+  View,
+  Share } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import PhotoBrowser from 'react-native-photo-browser';
@@ -21,6 +22,7 @@ import PhotoEditorContainer from './PhotoEditorContainer';
 const BUTTONS = [
   'Edit',
   'Save',
+  'Share',
   'Add',
   'Cancel',
 ];
@@ -58,6 +60,27 @@ class _PhotoGalleryDetails extends React.Component {
     });
   };
 
+  shareImage = (image) => {
+    const customerAddress = this.props.data.customer.address;
+    const customerName = `${this.props.data.customer.firstName} ${this.props.data.customer.lastName}`;
+
+    Share.share({
+      message: `Check out this photo for ${customerName} at ${customerAddress}.`,
+      url: image.photo,
+      title: `Photo for ${customerAddress}`,
+      subject: `Photo for ${customerAddress}`,
+    }, {
+      excludedActivityTypes: [
+        'com.apple.UIKit.activity.PostToTwitter',
+      ],
+      tintColor: 'green',
+    })
+    .then(() => {})
+    .catch((error) => {
+      console.log(`Could not share photo: ${error.message}`);
+    });
+  }
+
   uploadImage = () => {
     ImagePickerManager.launchImageLibrary(photoOptions, (data) => {
       this.props.addSurveyPhoto({
@@ -90,6 +113,10 @@ class _PhotoGalleryDetails extends React.Component {
       if (selection === 'Save') {
         // saves locally to device gallery
         this.downloadImage(media);
+      }
+      if (selection === 'Share') {
+        // share image via text message, email, etc.
+        this.shareImage(media);
       }
       if (selection === 'Add') {
         this.uploadImage();
@@ -139,6 +166,7 @@ class _PhotoGalleryDetails extends React.Component {
         />
         <Modal
           style={{ flex: 1 }}
+          supportedOrientations={['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right']}
           isOpen={this.state.isEditorOpen}
           visible={this.state.isEditorOpen}
         >

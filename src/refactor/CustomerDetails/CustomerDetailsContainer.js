@@ -270,9 +270,7 @@ class _CustomerDetails extends Component {
               openFollowupModal={() => { this.setState({ followModal: true }); }}
               openFormModal={() => { this.setState({ formModal: true }); }}
             />
-           { this.props.params.type === 'search' || this.props.params.type === 'estimatesent' || this.props.params.type === 'myestimates' 
-           || this.props.params.type === 'estimatefollowup'
-           ?
+           {this.props.params.type === 'estimatesent' || this.props.params.type === 'myestimates' || this.props.params.type === 'estimatefollowup' ?
             <CustomerCardStaus
                customer={this.props.data.customer}
                id={this.props.profile}
@@ -280,19 +278,19 @@ class _CustomerDetails extends Component {
            : null}
 
              { this.props.params.type === 'search' ||
-             this.props.params.type === 'estimatesent' || 
-             this.props.params.type === 'myestimates' || 
+             this.props.params.type === 'estimatesent' ||
+             this.props.params.type === 'myestimates' ||
              this.props.params.type === 'estimatefollowup' ?
               <CustomerCardEstimate
                 customer={this.props.data.customer}
                 getEstimate={this.getFinishedSurvey}
               />
            : null}
-                   {this.props.params.type === 'newcustomers' ||
+            {this.props.params.type === 'newcustomers' ||
                 this.props.params.type === 'followup' ||
                 this.props.params.type === 'onsite' ||
                 this.props.params.type === 'inprogress' ||
-                this.props.params.type === 'surveycomplete'  ||
+                this.props.params.type === 'surveycomplete' ||
                 this.props.params.type === 'search' ?
               <CustomerCardSurvey
                 customer={this.props.data.customer}

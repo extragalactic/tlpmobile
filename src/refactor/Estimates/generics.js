@@ -1,5 +1,5 @@
 import React from 'react';
-import { View  } from 'react-native';
+import { View } from 'react-native';
 import { Text } from 'react-native-elements';
 
 const generics = [
@@ -12,8 +12,8 @@ const generics = [
           padding: 10,
         }}
       >
-      <Text h2> Waterproof Test</Text>
-        <Text> {"\n"}A water test is the one and only way to truly troubleshoot where water is coming from. {"\n"}</Text>
+        <Text h2> Waterproof Test</Text>
+        <Text> {'\n'}A water test is the one and only way to truly troubleshoot where water is coming from. {'\n'}</Text>
         <Text>You will need 2 people to conduct this water test - one on the inside and the other on
                 the outside with the hose. Firstly, let's follow the law of gravity. We know water runs
               downhill so it makes no sense to put water any place on the elevation other than the
@@ -39,7 +39,8 @@ const generics = [
       <View
         style={{
           padding: 10,
-        }}>
+        }}
+      >
         <Text h2>Stone Window Sills </Text>
         <Text>{'\n'}{'\u2022'} New limestone sills to be 3" or 4" depending on size of rough opening</Text>
         <Text>{'\u2022'} Sills come with rock face and custom cut drip edges (on-site) to reflect water away
@@ -49,18 +50,19 @@ mortar joints from end to end 1/4"deep (drip edge) and 1-1.5" away from the wall
 (drip edge)</Text>
         <Text>{'\u2022'} Sills are full length stones up to 6' in length (less mortar joints)</Text>
         <Text>{'\u2022'} Caulking at base where new sills meets window</Text>
-        <Text>10 year warranty on workmanship and materials</Text>      
+        <Text>10 year warranty on workmanship and materials</Text>
       </View>
     ),
   },
   {
     prop: 'pargeex',
     des: 'Repair, Grind & Parge',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text h2>Repair, Grind & Parge </Text>
         <Text>{'\n'}{'\u2022'} We lightly grind every single square inch of concrete until the surface is completely
 clean. Missing a single square inch can and will cause the parge to breakdown</Text>
@@ -75,11 +77,12 @@ setting finish, we parge with a float sandstone finish.</Text>
   {
     prop: 'obc',
     des: 'Ontario Building Code (OBC)—— Sidewalk/ garage pad /slab',
-        text: () => (
-          <View
+    text: () => (
+      <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text h2>Ontario Building Code (OBC) — Sidewalk / Garage Pad / Slab</Text>
         <Text>{'\n'}{'\u2022'}Install 2" HPB aggregates</Text>
         <Text>{'\u2022'} Install 6"x6" wire mesh to centre of new concrete</Text>
@@ -89,15 +92,16 @@ setting finish, we parge with a float sandstone finish.</Text>
       </View>
     ),
   },
-  
+
   {
     prop: 'nbc',
     des: 'National Building Code (NBC) —— Sidewalk/ garage pad /slab',
-        text: () => (
-        <View
+    text: () => (
+      <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text h2>National Building Code (NBC) — Sidewalk / Garage Pad / Slab</Text>
         <Text>{'\n'}{'\u2022'}Remove existing slab or concrete</Text>
         <Text>{'\u2022'} Drill 4 foot deep pilings 10 inches in diameter and a minimum of 5 foot intervals</Text>
@@ -109,15 +113,16 @@ setting finish, we parge with a float sandstone finish.</Text>
       </View>
     ),
   },
-  
+
   {
     prop: 'concreteSteps',
     des: 'Concrete steps / landing / treads / risers',
-        text: () => (
-     <View
+    text: () => (
+      <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text h2>Concrete Steps / Landing / Treads / Risers</Text>
         <Text>{'\n'}{'\u2022'}Remove existing landing, treads/ risers</Text>
         <Text>{'\u2022'} Drill and install 4 foot deep pilings 10 inches in diameter at a maximum of 5 foot
@@ -132,34 +137,36 @@ intervals at all grades including treads and risers</Text>
       </View>
     ),
   },
-  
+
   {
     prop: 'concreteCare',
     des: 'Concrete Care',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text h2> Concrete Care </Text>
         <Text>{'\n'} We only recommend the use of coarse sand on your concrete/flagstone for winter
 conditions. All other products are harmful and may cause pitting or discolouration. A
 bag of coarse sand can be purchased at Home Depot. {'\n'} </Text>
-<Text> Please note: our flagstone installation/restoration has a warranty for 5 years provided
+        <Text> Please note: our flagstone installation/restoration has a warranty for 5 years provided
 you use only sand in the winter for icy conditions. All other products cause damage to
 the mortar joints. Small bags of construction sand can be purchased at Home Depot</Text>
       </View>
     ),
   },
-  
+
   {
     prop: 'retaining',
     des: 'Retaining walk outs (NBC)',
-        text: () => (
-         <View
+    text: () => (
+      <View
         style={{
           padding: 10,
-        }}>
+        }}
+      >
         <Text h2>Retaining Walk-Outs (NBC)</Text>
         <Text>{'\n'}{'\u2022'} Remove existing walk out, landscaping, decking, fence etc. (if required) and haul
 away</Text>
@@ -175,18 +182,20 @@ ensure that the hydrostatic pressure is always being released, thereby taking a 
 pressure off the wall (OBC says No, NBC says Yes)</Text>
         <Text>{'\u2022'} Cover walls with parge if block (if concrete, no parge is required)</Text>
         <Text>{'\u2022'} Backfill and compress native soils into place or backfill with HPB aggregates</Text>
-     </View>
+      </View>
     ),
   },
-  
+
   {
+
     prop: 'chimney',
     des: 'Chimney',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text h2>Chimney </Text>
         <Text>{'\n'}{'\u2022'} Dismantle chimney to roofline/foundation/top only and rebuild with new brick to
 match as close as possible (no corbeling)</Text>
@@ -195,11 +204,11 @@ match as close as possible (no corbeling)</Text>
         <Text>{'\u2022'} Cover walls with parge if block (if concrete, no parge is required)</Text>
         <Text>{'\u2022'} Backfill and compress native soils into place or backfill with HPB aggregates</Text>
         <Text h3>New Crown</Text>
-               <Text>{'\u2022'} Install portland or type 10 mix 3-1 pre-hydrated or hydraulic mortar</Text>
+        <Text>{'\u2022'} Install portland or type 10 mix 3-1 pre-hydrated or hydraulic mortar</Text>
         <Text>{'\u2022'}Top of crown to be sloped and feathered from 2" down to outer edge of limestone
 cap{'\n'} </Text>
-               <Text>{'\u2022'}Apply fire rated caulking(orange or grey colour) around all flue liners (including gas))</Text>
-                       <Text h3>Check Roof Flashing </Text>
+        <Text>{'\u2022'}Apply fire rated caulking(orange or grey colour) around all flue liners (including gas))</Text>
+        <Text h3>Check Roof Flashing </Text>
 
         <Text>{'\u2022'} Re-attach flashing and caulk and ensure not even a pinhole exists.</Text>
         <Text>{'\u2022'} Clean roof, dismantle scaffolding, clean up little pigs mess and haul away</Text>
@@ -208,15 +217,16 @@ cap{'\n'} </Text>
       </View>
     ),
   },
-  
+
   {
     prop: 'refacingSlices',
     des: 'Stone Refacing Slices',
-        text: () => (
-        <View
+    text: () => (
+      <View
         style={{
           padding: 10,
-        }}>
+        }}
+      >
         <Text h2>Stone Refacing Slices - Remove siding and/or trim work from around
 windows</Text>
         <Text>{'\n'}{'\u2022'} Install minimum 3/8" to 3/4" thick plywood</Text>
@@ -224,37 +234,39 @@ windows</Text>
         <Text>{'\u2022'}Install real natural limestone 3" thick window sills complete with rock face and drip
 edge</Text>
         <Text>{'\u2022'} Caulk and seal all new work where required</Text>
-        <Text>10 year warranty on workmanship and materials</Text>      
+        <Text>10 year warranty on workmanship and materials</Text>
       </View>
     ),
   },
-  
+
   {
     prop: 'refacingComplete',
     des: 'Complete Stone Refacing',
-            text: () => (
-          <View
+    text: () => (
+      <View
         style={{
           padding: 10,
-        }}>
+        }}
+      >
         <Text h2>Complete Stone Refacing</Text>
         <Text>{'\n'}{'\u2022'} Remove and haul away existing brick if required</Text>
         <Text>{'\u2022'}Install new vapour barrier and rubber membrane flashing if required</Text>
         <Text>{'\u2022'}Install limestone address plaque</Text>
         <Text>{'\u2022'}Caulk and seal all new work where required</Text>
-        <Text>10 year warranty on workmanship and materials</Text>      
+        <Text>10 year warranty on workmanship and materials</Text>
       </View>
     ),
   },
-  
+
   {
     prop: 'coping',
     des: 'Coping Stone',
-       text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }}>
+        }}
+      >
         <Text h2>Coping Stone</Text>
         <Text>{'\n'}{'\u2022'}Install full length 3 inch Indiana limestone CAP (no mitred corners)</Text>
         <Text>{'\u2022'}2" overhang with drip edge cut thoroughly through stone and mortar joints from end
@@ -279,10 +291,10 @@ to end, 1/4"deep (drip edge) and 1-1.5" away from the wall</Text>
            a place to vent. This is where weepers come in, providing they are functional and are
           even present. {'\n'}</Text>
 
-<Text> Without weepers, or plugged weepers, water becomes trapped in the cavity and slowly
+        <Text> Without weepers, or plugged weepers, water becomes trapped in the cavity and slowly
 starts to erode the brick from the inside out, or worse yet, starts entering inside the
 building, causing mold and other issues. {'\n'}</Text>
-<Text> We also want to protect the exterior face by applying a parge to the new masonry, to
+        <Text> We also want to protect the exterior face by applying a parge to the new masonry, to
 ensure that the exterior is repelling the moisture away rather then absorbing the water
 that it is usually exposed to.{'\n'}</Text>
         <Text>{'\u2022'} Remove at least 2 courses of brick</Text>
@@ -348,7 +360,7 @@ aggregates (depending on weather and/or location)</Text>
     prop: 'flagstone',
     des: 'Flagstone',
     text: () => (
-       <View
+      <View
         style={{
           padding: 10,
         }}
@@ -365,11 +377,12 @@ aggregates (depending on weather and/or location)</Text>
   {
     prop: 'fwarranty',
     des: 'Flagstone Warrany',
-      text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text>{'\n'}FLAGSTONE WARRANTY: Our flagstone installation has a warranty for 5 years provided
 you use only sand in the winter for icy conditions. All other products cause damage to
 the mortar joints. Small bags of construction sand can be purchased at Home Depot. {'\n'} </Text>
@@ -380,11 +393,12 @@ the mortar joints. Small bags of construction sand can be purchased at Home Depo
   {
     prop: 'pwarranty',
     des: 'Parging Warranty',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text> PARGING & COATING WARRANTY: Our parging and coating have a 5 year warranty
 provided you use only sand in the winter for icy conditions. All other products cause
 damage to concrete, parge and coatings. Small bags of construction sand can be
@@ -396,11 +410,12 @@ purchased at Home Depot.</Text>
   {
     prop: 'disclaimerA',
     des: 'Disclaimer A',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text> Please Note: Additional work outside of the estimate to be assessed and discussed onsite with customer</Text>
       </View>
     ),
@@ -412,23 +427,25 @@ purchased at Home Depot.</Text>
       <View
         style={{
           padding: 10,
-        }}>
+        }}
+      >
         <Text> For uniformity to the look and long term weather proofing of your masonry we
 recommend you consider Tuckpointing complete elevations rather than patch repairs.
 This should also include RGP parge minimum 8" from grade around property where
 accessible.</Text>
-    
+
       </View>
     ),
   },
   {
     prop: 'surveyInvite',
     des: 'Survey Invite',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text> If you are interested in using our services we can arrange for one of our surveyors to
 visit your property. Estimate may change as a result of the survey.</Text>
       </View>
@@ -437,11 +454,12 @@ visit your property. Estimate may change as a result of the survey.</Text>
   {
     prop: 'surveyInviteDave',
     des: 'Survey Invite Dave',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text > If you are interested in using our services a further site visit will be required from the
 owner David Fritz to discuss details etc. Estimate may change as a result of this
 consultation</Text>
@@ -451,11 +469,12 @@ consultation</Text>
   {
     prop: 'customerClean',
     des: 'Customer Clean',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} >
+        }}
+      >
         <Text>Customer to arrange timber decking/handrails etc. to be removed before our work begins and re-installed after our work is done.</Text>
         <Text>{'\n'} {'\n'} </Text>
       </View>
@@ -464,11 +483,11 @@ consultation</Text>
   {
     prop: 'existingConcrete',
     des: 'Existing Concrete',
-        text: () => (
+    text: () => (
       <View
         style={{
           padding: 10,
-        }} 
+        }}
       >
         <Text> Your existing concrete porch steps/landing show signs of moving so are not structurally solid. Any stones you put on its surface will not last as the movement will break the mortar joints between the stones. Without continually filling these joints, water will get in the broken joints, will freeze, expand, and accelerate the rate of damage</Text>
         <Text>{'\n'} {'\n'} </Text>
