@@ -76,7 +76,7 @@ class _GiftedChatContainer extends React.Component {
     this.props.addNotes({ variables: {
       custid: this.props.data.customer.id,
       name: `${this.state.user.firstName} ${this.state.user.lastName}`,
-      userid: this.props.id,
+      userid: this.props.profile,
       text: messages[0].text,
       createdAt: messages[0].createdAt,
     } });
@@ -182,10 +182,11 @@ class _GiftedChatContainer extends React.Component {
         user={{
           _id: 1, // sent messages should have same user._id
         }}
-        renderActions={this.renderCustomActions}
         renderBubble={this.renderBubble}
-        renderCustomView={this.renderCustomView}
         renderFooter={this.renderFooter}
+        renderAvatarOnTop
+        // renderActions={this.renderCustomActions}
+        // renderCustomView={this.renderCustomView}
       />
     );
   }
