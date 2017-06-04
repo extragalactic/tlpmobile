@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, WebView } from 'react-native';
-import { Button } from 'react-native-elements';
 import { width, height } from 'react-native-dimension';
 import Spinner from 'react-native-spinkit';
-
-import { MasterStyleSheet } from '../../style/MainStyles';
 
 const styles = {
   view: {
@@ -25,6 +22,7 @@ const styles = {
   },
 };
 const BASE_URL = 'https://tlpm.ca';
+
 
 class PhotoEditorContainer extends React.Component {
   static propTypes = {
